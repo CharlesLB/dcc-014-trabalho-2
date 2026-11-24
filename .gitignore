@@ -5,7 +5,5 @@ __pycache__/
 *.pyc
 .pytest_cache/
 data/raw/
-results/
-!results/.gitkeep
 *.egg-info/
 PROMPT.md
