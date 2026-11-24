@@ -100,7 +100,3 @@ tests/             testes (pytest)
 - **Baselines:** versões binárias simplificadas, não cópias dos artigos de
   origem. Conferir antes de usar no relatório.
 
-## Convenções do repositório
-
-`spec/` e `.claude/` ficam fora do git (`.gitignore`). `data/raw/` e
-`results/` também, porque são grandes ou regeneráveis.
