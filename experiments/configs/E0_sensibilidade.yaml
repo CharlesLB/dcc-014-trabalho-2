@@ -1,0 +1,12 @@
+# SPEC §3.5: leitura de n em tenure e maxiterTS. Só treino, bases de ajuste.
+campanha: E0-sensibilidade
+bases: [parkinson, wpbc, qadc]
+classificadores: [DA]
+variantes: [MST]
+folds: todos
+sementes: [0, 1]
+params: {beta: 0.99, alpha: 0.99, maxiter_ms: 10}
+grade:
+  scale_base: [casos, variaveis]
+n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
+blas_threads: 1    # uma thread de BLAS por processo

@@ -1,0 +1,15 @@
+# SPEC §6.2: ajuste de lambda e gatilho (só treino, bases de ajuste, protocolo P2).
+# Requer E2-P1 já rodado para os orçamentos.
+campanha: E2a-ajuste
+bases: [parkinson, wpbc, qadc]
+classificadores: [DA]
+variantes: [MST_FREQ]
+folds: todos
+sementes: [0, 1]
+params: {beta: 0.99, alpha: 0.99, scale_base: casos}
+grade:
+  lam: [0.0, 0.005, 0.01, 0.02, 0.05]
+  trigger: [2, 3, 5]
+protocolo: {tipo: P2, orcamento_de: results/E2-P1/runs.jsonl, variante_ref: MST}
+n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
+blas_threads: 1    # uma thread de BLAS por processo

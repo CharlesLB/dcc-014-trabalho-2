@@ -1,0 +1,11 @@
+# SPEC §6.5: trajetórias para demonstrar a fuga de máximo local.
+campanha: E5-fuga
+bases: [parkinson, wpbc]
+classificadores: [DA]
+variantes: [MST, GULOSO]
+folds: todos
+sementes: [0]
+params: {beta: 0.99, alpha: 0.99, scale_base: casos, maxiter_ms: 10}
+trace: true
+n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
+blas_threads: 1    # uma thread de BLAS por processo

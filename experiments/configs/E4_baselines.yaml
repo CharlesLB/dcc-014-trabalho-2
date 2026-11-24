@@ -1,0 +1,13 @@
+# SPEC §6.4: baselines do artigo com o tempo médio do MST no mesmo fold (como no artigo).
+campanha: E4-baselines-DA
+bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
+classificadores: [DA]
+variantes: [GA, GWO, PSO, WOA, FPA]
+folds: todos
+sementes: [0, 1, 2, 3, 4]
+params: {beta: 0.99}
+tempo_de: results/E1-reproducao-DA/runs.jsonl
+tempo_variante_ref: MST
+baseline_params: {pop: 10}
+n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
+blas_threads: 1    # uma thread de BLAS por processo

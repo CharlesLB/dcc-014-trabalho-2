@@ -1,0 +1,12 @@
+# SPEC §6.2, protocolo P2 (orçamento igual = mediana de n_evals do MST em P1).
+# Ajuste lam/trigger com o resultado de E2a antes de rodar.
+campanha: E2-P2
+bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
+classificadores: [DA]
+variantes: [GULOSO, MST, MST_FREQ]
+folds: todos
+sementes: [0, 1, 2, 3, 4]
+params: {beta: 0.99, alpha: 0.99, scale_base: casos, lam: 0.01, trigger: 3}
+protocolo: {tipo: P2, orcamento_de: results/E2-P1/runs.jsonl, variante_ref: MST}
+n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
+blas_threads: 1    # uma thread de BLAS por processo

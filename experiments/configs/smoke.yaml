@@ -1,0 +1,9 @@
+# Ensaio rápido com base sintética (roda sem as bases reais).
+campanha: smoke
+saida: results
+bases: [sintetica-120-12-4-0]
+classificadores: [DA]
+variantes: [MST, MST_FREQ, GULOSO]
+folds: [0, 1]
+sementes: [0]
+params: {scale_base: variaveis, maxiter_ms: 3}
