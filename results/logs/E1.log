@@ -89,3 +89,6 @@
   88/450 MST qadc f7 s3 f=0.8928 |S|=26 2999.7s
   89/450 MST qadc f8 s0 f=0.9040 |S|=28 2480.2s
   90/450 MST qadc f7 s4 f=0.8929 |S|=25 2954.3s
+  91/450 MST qadc f9 s0 f=0.9001 |S|=28 862.7s
+/home/charles/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
