@@ -1,8 +1,6 @@
 # MultiStartTabu para seleção de variáveis (Grupo 5)
 
-Implementação do MultiStartTabu (MST) de Pacheco et al. (2023), *Scientific
-Reports* 13:17140, e da extensão do grupo com memória de longo prazo por
-frequência entre reinícios (MST+FREQ). Segue a SPEC `spec/SPEC-busca-tabu.md`.
+
 
 ## Instalação
 
