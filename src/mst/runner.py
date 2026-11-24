@@ -315,6 +315,26 @@ def default_n_jobs() -> int:
     return max(1, logical // 2 - 1) if logical >= 4 else 1
 
 
+def pool_kwargs(n_jobs: int, blas: int) -> dict:
+    """Argumentos do ProcessPoolExecutor: um processo novo por execução.
+
+    Com ``max_tasks_per_child=1`` (Python ≥ 3.11) cada execução roda num processo
+    novo, e a memória do cache de f volta ao sistema ao fim dela. Sem isso, o
+    alocador do Python mantém a memória de execuções anteriores e 7 processos na
+    QADC chegaram a 60 GB. O tempo medido (``tempo_s``) não inclui a criação do
+    processo.
+    """
+    import sys
+
+    kw = {"max_workers": n_jobs, "initializer": limit_blas_threads, "initargs": (blas,)}
+    if sys.version_info >= (3, 11):
+        import multiprocessing as mp
+
+        kw["max_tasks_per_child"] = 1
+        kw["mp_context"] = mp.get_context("spawn")
+    return kw
+
+
 def _exec_safe(spec: RunSpec) -> dict:
     try:
         return execute(spec)
@@ -356,8 +376,7 @@ def run_campaign(config: dict, n_jobs: int | None = None, resume: bool = True,
         for i, s in enumerate(todo, 1):
             _store(i, _exec_safe(s))
     else:
-        with ProcessPoolExecutor(max_workers=n_jobs, initializer=limit_blas_threads,
-                                 initargs=(blas,)) as ex:
+        with ProcessPoolExecutor(**pool_kwargs(n_jobs, blas)) as ex:
             futs = [ex.submit(_exec_safe, s) for s in todo]
             for i, fut in enumerate(as_completed(futs), 1):
                 _store(i, fut.result())

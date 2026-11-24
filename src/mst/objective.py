@@ -1,6 +1,9 @@
 """Função objetivo f(S) = β·Rat(S) + (1 − β)·(1 − |S|/m) com cache e orçamento.
 
 Subconjuntos são representados por ``frozenset`` de índices de colunas (0..m−1).
+No cache, a chave é a máscara de bits ``int`` do subconjunto (SPEC §2 permite
+frozenset ou bitmask). Com m = 65 e |S| ≈ 28, um frozenset ocupa cerca de 2 KB e
+a máscara cerca de 36 bytes: execuções com milhões de avaliações cabem na memória.
 """
 
 from __future__ import annotations
@@ -22,6 +25,16 @@ def as_subset(S: Iterable[int]) -> frozenset:
     return S if isinstance(S, frozenset) else frozenset(int(j) for j in S)
 
 
+def subset_mask(S: Iterable[int]) -> int:
+    """Máscara de bits do subconjunto: bit j ligado se j ∈ S."""
+    mask = 0
+    for j in S:
+        if j < 0:
+            raise IndexError(f"variável {j} negativa")
+        mask |= 1 << j
+    return mask
+
+
 class BaseObjective:
     """Base com cache, contadores e orçamento.
 
@@ -40,7 +53,7 @@ class BaseObjective:
         self.beta = float(beta)
         self.use_cache = cache
         self.max_evals = max_evals
-        self._cache: dict[frozenset, float] = {}
+        self._cache: dict[int, float] = {}  # chave = subset_mask(S)
         self.n_evals = 0
         self.n_cache_hits = 0
 
@@ -49,9 +62,12 @@ class BaseObjective:
         S = as_subset(S)
         if not S:
             return 0.0  # f(∅) = 0 por convenção (Pseudocódigo 2)
-        if self.use_cache and S in self._cache:
-            self.n_cache_hits += 1
-            return self._cache[S]
+        if self.use_cache:
+            key = subset_mask(S)
+            hit = self._cache.get(key)
+            if hit is not None:
+                self.n_cache_hits += 1
+                return hit
         if self.max_evals is not None and self.n_evals >= self.max_evals:
             raise BudgetExhausted(f"orçamento de {self.max_evals} avaliações esgotado")
         for j in S:
@@ -60,7 +76,7 @@ class BaseObjective:
         value = float(self._score(S))
         self.n_evals += 1
         if self.use_cache:
-            self._cache[S] = value
+            self._cache[key] = value
         return value
 
     @property

@@ -162,3 +162,51 @@ def test_cache_does_not_change_values(synth_xy):
     b = ClassifierObjective(X, y, cache=False)
     for S in [{0}, {1, 2}, {0, 1, 2, 3}, {0}]:
         assert a(S) == b(S)
+
+
+# ------------------------------------------------- cache com chave em bitmask
+def test_subset_mask_bits():
+    from mst.objective import subset_mask
+
+    assert subset_mask(frozenset()) == 0
+    assert subset_mask({0}) == 1
+    assert subset_mask({0, 3}) == 0b1001
+    assert subset_mask({64}) == 1 << 64  # QADC tem m = 65
+
+
+def test_subset_mask_rejects_negative():
+    from mst.objective import subset_mask
+
+    with pytest.raises(IndexError):
+        subset_mask({-1})
+
+
+def test_mask_cache_distinguishes_all_subsets():
+    # todos os 2^6 - 1 subconjuntos não vazios: nenhuma colisão no cache
+    import itertools
+
+    from mst.objective import FunctionObjective
+
+    o = FunctionObjective(6, lambda S: sum(2.0 ** j for j in S) / 100)
+    subs = [frozenset(c) for k in range(1, 7) for c in itertools.combinations(range(6), k)]
+    vals = [o(S) for S in subs]
+    assert len(o._cache) == len(subs) == 63
+    assert [o(S) for S in subs] == vals  # segunda passada: só acertos
+    assert o.n_cache_hits == 63 and o.n_evals == 63
+
+
+def test_mask_cache_key_is_int_and_order_free():
+    from mst.objective import FunctionObjective
+
+    o = FunctionObjective(70, lambda S: len(S) / 70)
+    o([69, 2, 5])
+    o((5, 69, 2))
+    assert o.n_evals == 1 and o.n_cache_hits == 1
+    assert all(isinstance(k, int) for k in o._cache)
+
+
+def test_mask_cache_stores_minus_inf():
+    o = TableObjective(3, {(0,): 0.5})  # default -inf
+    assert o({1}) == float("-inf")
+    assert o({1}) == float("-inf")
+    assert o.n_evals == 1 and o.n_cache_hits == 1

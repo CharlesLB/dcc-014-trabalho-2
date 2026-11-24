@@ -263,3 +263,15 @@ def test_limit_blas_threads_sets_env(monkeypatch):
 
     R.limit_blas_threads(1)
     assert os.environ["OMP_NUM_THREADS"] == "1"
+
+
+def test_pool_one_process_per_run():
+    import sys
+
+    from mst.runner import pool_kwargs
+
+    kw = pool_kwargs(3, 1)
+    assert kw["max_workers"] == 3 and kw["initargs"] == (1,)
+    if sys.version_info >= (3, 11):
+        assert kw["max_tasks_per_child"] == 1
+        assert kw["mp_context"].get_start_method() == "spawn"
