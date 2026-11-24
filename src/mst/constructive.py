@@ -50,7 +50,7 @@ def construct(objective: BaseObjective, alpha: float, rng: np.random.Generator,
     fS = 0.0
     steps = 0
     try:
-        g = {j: objective(frozenset([j])) for j in range(m)}
+        g = dict(zip(range(m), objective.evaluate_many([frozenset([j]) for j in range(m)])))
         eligible = list(range(m))  # L' inicial = V (f(∅) = 0)
         while eligible:
             rank = g if penalty is None else {j: g[j] - penalty[j] for j in eligible}
@@ -62,7 +62,7 @@ def construct(objective: BaseObjective, alpha: float, rng: np.random.Generator,
             if max_size is not None and len(S) >= max_size:
                 break
             rest = [j for j in range(m) if j not in S]
-            g = {j: objective(S | {j}) for j in rest}
+            g = dict(zip(rest, objective.evaluate_many([S | {j} for j in rest])))
             eligible = [j for j in rest if g[j] >= fS - eps]
     except BudgetExhausted:
         return ConstructResult(S, fS, steps, budget_hit=True, diversified=penalty is not None)

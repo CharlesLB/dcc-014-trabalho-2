@@ -82,20 +82,23 @@ def tabu_search(objective: BaseObjective, S0, tenure: int, maxiter: int,
         b_tabu = False
         b_asp = False
         all_le = True
+        # A vizinhança inteira é avaliada de uma vez (em lote quando o objetivo
+        # permite); a escolha abaixo percorre os vizinhos na mesma ordem de antes.
+        nbrs = list(moves(S, m, min_size=min_size))
+        cand = [mv.apply(S) for mv in nbrs]
         try:
-            for mv in moves(S, m, min_size=min_size):
-                Sp = mv.apply(S)
-                fp = objective(Sp)
-                if fp > fS + eps:
-                    all_le = False
-                tabu = is_tabu(mv, it, vin, vout, tenure)
-                asp = fp > f_best + eps
-                if (not tabu or asp) and fp > fb:
-                    fb, Sb, mv_b, b_tabu, b_asp = fp, Sp, mv, tabu, asp
+            fvals = objective.evaluate_many(cand)
         except BudgetExhausted:
             budget_hit = True
             it -= 1
             break
+        for mv, Sp, fp in zip(nbrs, cand, fvals):
+            if fp > fS + eps:
+                all_le = False
+            tabu = is_tabu(mv, it, vin, vout, tenure)
+            asp = fp > f_best + eps
+            if (not tabu or asp) and fp > fb:
+                fb, Sb, mv_b, b_tabu, b_asp = fp, Sp, mv, tabu, asp
 
         is_lm = detect_local_max and all_le
         f_before = fS
