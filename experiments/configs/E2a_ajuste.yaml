@@ -6,7 +6,7 @@ classificadores: [DA]
 variantes: [MST_FREQ]
 folds: todos
 sementes: [0, 1]
-params: {beta: 0.99, alpha: 0.99, scale_base: casos}
+params: {beta: 0.99, alpha: 0.99, scale_base: variaveis}
 grade:
   lam: [0.0, 0.005, 0.01, 0.02, 0.05]
   trigger: [2, 3, 5]
