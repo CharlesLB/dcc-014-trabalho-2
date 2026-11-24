@@ -3,6 +3,13 @@
 DA      análise discriminante linear em numpy (rápida, mesma regra de decisão
         do LinearDiscriminantAnalysis(solver="svd") do scikit-learn para 2 classes).
 DA_SK   LinearDiscriminantAnalysis do scikit-learn (referência).
+DA_PASCAL  diagnóstico: a regra do código Pascal público dos autores
+        (FuncionesClas.pas). Corta no ponto médio das médias das classes, sem
+        o termo log(π1/π0), ou seja, com a priori iguais. O Pascal usa a
+        covariância total; para duas classes, Σ_T⁻¹(μ1 − μ0) é múltiplo positivo
+        de Σ_W⁻¹(μ1 − μ0), então a direção e as decisões são as mesmas que as de
+        FastLDA(equal_priors=True). Só difere em matrizes singulares (o Pascal
+        usa Gauss-Jordan e falha; aqui é pseudo-inversa).
 LR      LogisticRegression(solver="liblinear"), Lin et al. (trust region Newton).
 SVM     LinearSVC(dual=True), Hsieh et al. (dual coordinate descent).
 """
@@ -13,7 +20,7 @@ import warnings
 
 import numpy as np
 
-CLASSIFIERS = ("DA", "DA_SK", "LR", "SVM")
+CLASSIFIERS = ("DA", "DA_SK", "DA_PASCAL", "LR", "SVM")
 
 
 class FastLDA:
@@ -27,8 +34,9 @@ class FastLDA:
     o teste tests/test_classifiers.py confere a concordância).
     """
 
-    def __init__(self, tol: float = 1e-4):
+    def __init__(self, tol: float = 1e-4, equal_priors: bool = False):
         self.tol = tol
+        self.equal_priors = equal_priors
         self.coef_: np.ndarray | None = None
         self.intercept_: float = 0.0
         self.classes_: np.ndarray | None = None
@@ -62,7 +70,8 @@ class FastLDA:
         p1 = mask1.mean()
         p0 = 1.0 - p1
         self.coef_ = w
-        self.intercept_ = float(-0.5 * (mu1 + mu0) @ w + np.log(p1 / p0))
+        prior = 0.0 if self.equal_priors else np.log(p1 / p0)
+        self.intercept_ = float(-0.5 * (mu1 + mu0) @ w + prior)
         return self
 
     def decision_function(self, X: np.ndarray) -> np.ndarray:
@@ -74,10 +83,12 @@ class FastLDA:
 
 
 def make_classifier(name: str, seed: int = 0):
-    """Cria um classificador novo pelo nome (DA, DA_SK, LR, SVM)."""
+    """Cria um classificador novo pelo nome (DA, DA_SK, DA_PASCAL, LR, SVM)."""
     name = name.upper()
     if name == "DA":
         return FastLDA()
+    if name == "DA_PASCAL":
+        return FastLDA(equal_priors=True)
     if name == "DA_SK":
         from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 

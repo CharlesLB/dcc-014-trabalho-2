@@ -96,3 +96,47 @@ def test_lr_svm_deterministic_with_seed():
         a = fit_predict(name, X, y, X, seed=3)
         b = fit_predict(name, X, y, X, seed=3)
         assert np.array_equal(a, b)
+
+
+# ------------------------------------------- DA_PASCAL (regra do código público)
+def _pascal_reference(X, y):
+    """Reimplementação literal de FuncionesClas.pas: covariância total (1/n),
+    coeficientes Σ_T⁻¹(μ1 − μ0), corte no ponto médio das médias, classe 1 se > 0."""
+    mu = X.mean(axis=0)
+    cov = X.T @ X / len(X) - np.outer(mu, mu)
+    mu0, mu1 = X[y == 0].mean(axis=0), X[y == 1].mean(axis=0)
+    w = np.linalg.solve(cov, mu1 - mu0)
+    b = -w @ ((mu1 + mu0) / 2)
+    return (X @ w + b > 0).astype(int)
+
+
+@pytest.mark.parametrize("seed", range(5))
+@pytest.mark.parametrize("weights", [(0.5, 0.5), (0.8, 0.2), (0.9, 0.1)])
+def test_da_pascal_matches_pascal_rule(seed, weights):
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(n_samples=300, n_features=6, n_informative=4, n_redundant=0,
+                               weights=list(weights), random_state=seed)
+    ours = fit_predict("DA_PASCAL", X, y, X)
+    ref = _pascal_reference(X, y)
+    assert (ours == ref).mean() >= 0.995  # empates numéricos no limiar podem trocar 1 caso
+
+
+def test_da_pascal_differs_from_da_only_in_threshold():
+    from sklearn.datasets import make_classification
+
+    X, y = make_classification(n_samples=400, n_features=5, n_informative=3, n_redundant=0,
+                               weights=[0.85, 0.15], random_state=0)
+    a = FastLDA().fit(X, y)
+    b = FastLDA(equal_priors=True).fit(X, y)
+    assert np.allclose(a.coef_, b.coef_)
+    p1 = y.mean()
+    assert a.intercept_ - b.intercept_ == pytest.approx(np.log(p1 / (1 - p1)))
+
+
+def test_da_pascal_equals_da_when_balanced():
+    rng = np.random.default_rng(0)
+    X = rng.normal(size=(200, 4))
+    y = np.repeat([0, 1], 100)
+    X[y == 1] += 0.7
+    assert (fit_predict("DA", X, y, X) == fit_predict("DA_PASCAL", X, y, X)).all()
