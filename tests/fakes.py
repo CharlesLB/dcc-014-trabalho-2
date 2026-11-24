@@ -116,7 +116,8 @@ def cervical(d: Path, n=858, n_incomplete=190, seed=0):
     df.to_csv(d / "risk_factors_cervical_cancer.csv", index=False)
 
 
-def glioma(d: Path, gbm=352, lgg=487, seed=0):
+def glioma(d: Path, gbm=352, lgg=487, seed=0, duplicate=True):
+    """Como na UCI: com ``duplicate`` uma linha LGG aparece duas vezes."""
     rng = np.random.default_rng(seed)
     n = gbm + lgg
     cols = {"Grade": _labels(rng, gbm, lgg, 1, 0).astype(int), "Gender": rng.integers(0, 2, n),
@@ -125,8 +126,12 @@ def glioma(d: Path, gbm=352, lgg=487, seed=0):
               "FUBP1", "RB1", "NOTCH1", "BCOR", "CSMD3", "SMARCA4", "GRIN2A", "IDH2", "FAT4",
               "PDGFRA"):
         cols[g] = rng.integers(0, 2, n)
+    df = pd.DataFrame(cols)
+    if duplicate:
+        lgg_row = df.index[df["Grade"] == 0][0]
+        df = pd.concat([df, df.loc[[lgg_row]]], ignore_index=True)
     d.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(cols).to_csv(d / "TCGA_InfoWithGrade.csv", index=False)
+    df.to_csv(d / "TCGA_InfoWithGrade.csv", index=False)
 
 
 def mesothelioma(d: Path, healthy=228, meso=96, fmt="xlsx", seed=0):

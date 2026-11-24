@@ -22,7 +22,12 @@ recorrência, anormal, consenso positivo, Alzheimer, biópsia positiva, GBM,
 mesotelioma). A checagem compara o par de contagens sem ordem, porque a
 Tabela 1 nem sempre lista a classe doente primeiro.
 
-Divergências conhecidas antes de baixar (anotar o que encontrar em `NOTES.md`):
+Situação com os arquivos reais (detalhes em `NOTES.md`): seis bases batem com a
+Tabela 1; Parkinson e SPECTF divergem em 1 a 2 casos de rótulo; QADC fica com
+65 variáveis (62 + 3 dummies de modalidade). O câncer cervical usa o alvo
+`Schiller` e a Glioma perde 1 linha repetida.
+
+Divergências conhecidas antes de baixar (texto original):
 
 - Parkinson: a UCI tem 147/48; o artigo diz 46/146 (soma 192, não 195).
 - QADC: a UCI tem 62 variáveis + 6 colunas de especialistas; o artigo diz 67.

@@ -101,8 +101,12 @@ def read_spectf(d: Path) -> pd.DataFrame:
     return _finalize(X, y)
 
 
-def read_qadc(d: Path, include_experts: bool = False, modality_dummies: bool = False) -> pd.DataFrame:
-    """QADC: junta green, hinselmann e schiller. Alvo = consensus."""
+def read_qadc(d: Path, include_experts: bool = False, modality_dummies: bool = True) -> pd.DataFrame:
+    """QADC: junta green, hinselmann e schiller. Alvo = consensus.
+
+    Padrão: 62 variáveis + 3 dummies de modalidade = 65 (a Tabela 1 diz 67).
+    As colunas ``experts::*`` ficam de fora porque ``consensus`` é a maioria
+    delas (vazamento do rótulo). Ver data/NOTES.md."""
     frames = []
     for mod in ("green", "hinselmann", "schiller"):
         f = d / f"{mod}.csv"
@@ -122,9 +126,12 @@ def read_qadc(d: Path, include_experts: bool = False, modality_dummies: bool = F
 CERVICAL_TARGETS = ("Hinselmann", "Schiller", "Citology", "Biopsy")
 
 
-def read_cervical(d: Path, target: str = "Biopsy") -> pd.DataFrame:
+def read_cervical(d: Path, target: str = "Schiller") -> pd.DataFrame:
     """Remove as 2 variáveis com mais faltantes, depois os casos com faltantes,
-    depois colunas constantes (artigo + SPEC §5.1)."""
+    depois colunas constantes (artigo + SPEC §5.1).
+
+    Alvo padrão ``Schiller``: é o único dos quatro alvos que reproduz as
+    contagens da Tabela 1 (668 casos, 63/605). Ver data/NOTES.md."""
     df = pd.read_csv(d / "risk_factors_cervical_cancer.csv", na_values="?")
     y_all = df[target].astype(int)
     X = df.drop(columns=list(CERVICAL_TARGETS))
@@ -136,8 +143,12 @@ def read_cervical(d: Path, target: str = "Biopsy") -> pd.DataFrame:
     return _finalize(X, y)
 
 
-def read_glioma(d: Path) -> pd.DataFrame:
+def read_glioma(d: Path, drop_duplicates: bool = True) -> pd.DataFrame:
+    """Glioma. A UCI tem 839 linhas, uma delas repetida (linhas 409 e 424, LGG).
+    Sem a repetição ficam 838 casos (486/352), como na Tabela 1."""
     df = pd.read_csv(d / "TCGA_InfoWithGrade.csv")
+    if drop_duplicates:
+        df = df.drop_duplicates(ignore_index=True)
     y = df["Grade"].astype(int)  # 1 = GBM
     X = df.drop(columns=["Grade"])
     return _finalize(X, y)
@@ -185,7 +196,7 @@ REGISTRY: dict[str, DatasetSpec] = {
         DatasetSpec("qadc", "QADC", 287, (72, 215), 67, read_qadc,
                     ("green.csv", "hinselmann.csv", "schiller.csv"),
                     "UCI: Quality Assessment of Digital Colposcopies",
-                    "A UCI tem 62 variáveis + experts; conferir como o artigo chegou a 67."),
+                    "A UCI tem 62 variáveis + experts; usamos 62 + 3 dummies de modalidade = 65 (artigo: 67)."),
         DatasetSpec("spectf", "SPECTF Heart", 267, (56, 211), 44, read_spectf,
                     ("SPECTF.train", "SPECTF.test"), "UCI: SPECTF Heart"),
         DatasetSpec("wdbc", "WDBC", 569, (212, 357), 30, read_wdbc,
@@ -198,11 +209,11 @@ REGISTRY: dict[str, DatasetSpec] = {
         DatasetSpec("cervical", "Câncer cervical", 668, (605, 63), 28, read_cervical,
                     ("risk_factors_cervical_cancer.csv",),
                     "UCI: Cervical cancer (Risk Factors)",
-                    "Alvo padrão Biopsy; conferir com a Tabela 1."),
+                    "Alvo Schiller (único que reproduz 63/605)."),
         DatasetSpec("glioma", "Glioma", 838, (486, 352), 23, read_glioma,
                     ("TCGA_InfoWithGrade.csv",),
                     "UCI: Glioma Grading Clinical and Mutation Features",
-                    "A UCI tem 839 casos; o artigo diz 838."),
+                    "A UCI tem 839 linhas com 1 repetida; sem ela, 838."),
         DatasetSpec("mesothelioma", "Mesotelioma", 324, (228, 96), 33, read_mesothelioma,
                     ("Mesothelioma data set.xlsx",), "UCI: Mesothelioma's disease"),
     ]

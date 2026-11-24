@@ -82,9 +82,17 @@ def test_spectf_combines_train_and_test(raw):
 def test_qadc_three_modalities(raw):
     fakes.qadc(raw / "qadc")
     df = D.load_raw("qadc", raw)
-    _check_basic(df, 62)
+    _check_basic(df, 62 + 3)  # padrão: dummies de modalidade, sem experts
     assert len(df) == 287
     assert not any(c.startswith("experts::") for c in df.columns)
+    assert {"mod_green", "mod_hinselmann", "mod_schiller"} <= set(df.columns)
+    assert (df[["mod_green", "mod_hinselmann", "mod_schiller"]].sum(axis=1) == 1).all()
+
+
+def test_qadc_without_dummies(raw):
+    fakes.qadc(raw / "qadc")
+    df = D.read_qadc(raw / "qadc", modality_dummies=False)
+    _check_basic(df, 62)
 
 
 def test_qadc_options(raw):
@@ -113,11 +121,34 @@ def test_cervical_other_target(raw):
     assert len(a) == len(b)
 
 
+def test_cervical_default_target_is_schiller(raw):
+    fakes.cervical(raw / "cervical")
+    df = D.load_raw("cervical", raw)
+    raw_df = pd.read_csv(raw / "cervical" / "risk_factors_cervical_cancer.csv", na_values="?")
+    ok = raw_df.drop(columns=["STDs: Time since first diagnosis",
+                              "STDs: Time since last diagnosis"]).notna().all(axis=1)
+    assert (df["y"].to_numpy() == raw_df.loc[ok, "Schiller"].astype(int).to_numpy()).all()
+
+
 def test_glioma(raw):
     fakes.glioma(raw / "glioma")
     df = D.load_raw("glioma", raw)
     _check_basic(df, 23)
-    assert len(df) == 839
+    assert len(df) == 839  # 840 linhas no arquivo, 1 repetida removida
+    assert (df.y == 1).sum() == 352 and (df.y == 0).sum() == 487
+    assert not df.duplicated().any()
+
+
+def test_glioma_keep_duplicates(raw):
+    fakes.glioma(raw / "glioma")
+    df = D.read_glioma(raw / "glioma", drop_duplicates=False)
+    assert len(df) == 840
+
+
+def test_glioma_counts_match_table1(raw):
+    fakes.glioma(raw / "glioma", gbm=352, lgg=486)
+    chk = D.check_counts("glioma", D.load_raw("glioma", raw))
+    assert chk.ok, chk.problemas
 
 
 @pytest.mark.parametrize("fmt", ["xlsx", "csv"])
