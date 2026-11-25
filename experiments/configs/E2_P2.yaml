@@ -1,9 +1,10 @@
 # SPEC §6.2, protocolo P2 (orçamento igual = mediana de n_evals do MST em P1).
-# Ajuste lam/trigger com o resultado de E2a antes de rodar.
+# MST_FREQ fica em E2_P2_freq.yaml, com lam e trigger escolhidos no E2a. Aqui lam e
+# trigger não afetam GULOSO nem MST, mas entram na run_key: ficam como estavam.
 campanha: E2-P2
 bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
 classificadores: [DA]
-variantes: [GULOSO, MST, MST_FREQ]
+variantes: [GULOSO, MST]
 folds: todos
 sementes: [0, 1, 2, 3, 4]
 params: {beta: 0.99, alpha: 0.99, scale_base: variaveis, lam: 0.01, trigger: 3}

@@ -23,6 +23,26 @@ entradas:
   - config: experiments/configs/E3_ablacoes.yaml
     set: ["sementes=[0, 1, 2]"]
     prioridade: 3
+  # 02:10: E2a concluído, lam=0.05 e trigger=5 (D10). MST_FREQ de P1 e P2 com esses valores.
+  - config: experiments/configs/E2_P1_freq.yaml
+    set: ["sementes=[0, 1, 2]"]
+    prioridade: 2
+  - config: experiments/configs/E2_P2_freq.yaml
+    set: ["sementes=[0, 1, 2]"]
+    prioridade: 3
+  # Sementes 3 e 4 (volta às 5 da spec) só depois de tudo com 3 sementes.
+  - config: experiments/configs/E2_P1_freq.yaml
+    set: ["sementes=[3, 4]"]
+    prioridade: 4
+  - config: experiments/configs/E2_P2.yaml
+    set: ["variantes=[GULOSO, MST]", "sementes=[3, 4]"]
+    prioridade: 5
+  - config: experiments/configs/E2_P2_freq.yaml
+    set: ["sementes=[3, 4]"]
+    prioridade: 5
+  - config: experiments/configs/E3_ablacoes.yaml
+    set: ["sementes=[3, 4]"]
+    prioridade: 6
   - config: experiments/configs/E4_outros_classificadores.yaml
     set: ["variantes=[MST]", "classificadores=[SVM]", "bases=[spectf]"]
     prioridade: 9

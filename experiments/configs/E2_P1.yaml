@@ -2,9 +2,9 @@
 campanha: E2-P1
 bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
 classificadores: [DA]
-variantes: [GULOSO, MST, MST_FREQ]
+variantes: [GULOSO, MST]   # MST_FREQ em E2_P1_freq.yaml (lam e trigger do E2a)
 folds: todos
 sementes: [0, 1, 2, 3, 4]
-params: {beta: 0.99, alpha: 0.99, scale_base: variaveis, maxiter_ms: 10, lam: 0.01, trigger: 3}
+params: {beta: 0.99, alpha: 0.99, scale_base: variaveis, maxiter_ms: 10, lam: 0.01, trigger: 3}  # lam/trigger sem efeito em GULOSO e MST
 n_jobs: 7          # Ryzen 7 (8 núcleos): 7 processos; "auto" = núcleos físicos − 1
 blas_threads: 1    # uma thread de BLAS por processo

@@ -205,3 +205,28 @@ que o `experiments.fila` relê a cada minuto. Ordem de prioridade:
    voltado a 5).
 
 O MST_FREQ do E2-P2 entra na fila quando o E2a terminar.
+
+## D10. λ e gatilho do MST_FREQ (E2a concluído, 25/11 02:06)
+
+- Grade completa (5 λ × 3 gatilhos, 3 bases de ajuste, 10 folds, 2 sementes, P2) em
+  `results/relatorio/E2a.md`. Critério da spec §6.2: maior `f` médio no treino em P2,
+  desempate pela diversidade.
+- Escolha: **λ = 0,05, gatilho = 5** (f médio 0,89364). O padrão da spec (λ = 0,01,
+  gatilho = 3) dá 0,89347.
+- A grade é quase plana: em relação a λ = 0 (que reproduz o MST bit a bit), a melhor
+  combinação ganha só **+0,014 p.p.** em média, e em 53 de 60 execuções o resultado é
+  idêntico ao do MST (4 melhores, 3 piores). Todas as combinações ficam dentro de
+  ±0,014 p.p. A escolha segue o critério, mas a diferença entre elas não é relevante;
+  isso já é um resultado sobre a extensão: a penalidade por frequência quase nunca
+  muda a trajetória de modo que altere o melhor `f`.
+- O MST_FREQ antigo do E2-P1 (λ = 0,01, gatilho = 3; 450 execuções) saiu de
+  `results/E2-P1/runs.jsonl` para `results/E2-P1/runs_MST_FREQ_lam0.01_trigger3.jsonl`,
+  para não misturar parâmetros nos relatórios. Fica guardado para referência.
+- O MST_FREQ de E2-P1 e de E2-P2 roda com os novos valores
+  (`E2_P1_freq.yaml`, `E2_P2_freq.yaml`). GULOSO e MST continuam com λ = 0,01 e
+  gatilho = 3 nos params: esses valores não têm efeito neles, mas entram na `run_key`,
+  então mantê-los evita refazer execuções já prontas.
+- Folga de tempo: a estimativa da fila com 3 sementes é de ~4 h (até ~06:30). Por isso
+  a fila2 ganhou, com prioridade menor, as sementes 3 e 4 de E2-P1/MST_FREQ, E2-P2 e
+  E3, voltando às 5 sementes da spec se der tempo. O relatório usa só sementes
+  completas em todas as bases de cada comparação.

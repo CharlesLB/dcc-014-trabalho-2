@@ -1,0 +1,12 @@
+# SPEC §6.2, protocolo P1, só MST_FREQ, com lam e trigger escolhidos no E2a
+# (grade inteira em results/relatorio/E2a.md; critério: maior f médio no treino em P2).
+# Mesma campanha (E2-P1) que GULOSO e MST, para as comparações pareadas.
+campanha: E2-P1
+bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
+classificadores: [DA]
+variantes: [MST_FREQ]
+folds: todos
+sementes: [0, 1, 2, 3, 4]
+params: {beta: 0.99, alpha: 0.99, scale_base: variaveis, maxiter_ms: 10, lam: 0.05, trigger: 5}
+n_jobs: 7
+blas_threads: 1
