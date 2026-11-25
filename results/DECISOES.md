@@ -161,3 +161,24 @@ tentativa.
     orçamento de tempo lido do MST do **E2-P1** (`tempo_de`), cujas 450 execuções
     vêm todas da mesma origem (código novo, Windows do ianfefe). O E1 mistura
     código antigo e novo, e o orçamento ficaria 3× maior na QADC em 40 dos 50 folds.
+
+## D8. O que o texto completo do artigo confirma (PDF recebido em 25/11)
+
+As tabelas do artigo foram transcritas em `reports/artigo.py` (Tabelas 1 a 11),
+com testes de conferência em `tests/test_artigo.py`.
+
+- **n = casos.** A seção "Notation" define n como o número de casos de X (treino)
+  e m como o de variáveis; `tenure = n/2` e `maxiterTS = 10·n` usam esse n. A
+  leitura literal é, portanto, `casos`. A escolha de `variaveis` (D2) continua
+  valendo pelo critério do E0, mas é um **desvio declarado** do texto, não uma
+  interpretação dele. O código Pascal público dimensiona as listas pelo número de
+  variáveis, o que sugere que o programa usado pode diferir do texto.
+- **Normalização antes da divisão em folds** ("the data of the features were
+  normalized, and the database was divided into 10 folds"). Aqui ela é feita
+  dentro do fold, só com o treino (SPEC). Divergência metodológica a registrar nas
+  limitações; ela deixa o artigo com um leve vazamento de informação do teste.
+- **Tempo:** Tabela 2 é por fold, em Object-Pascal (Delphi 10.3), num Intel
+  i9-10920X com 128 GB. Com DA, de 0,5 s (Parkinson) a 72 s (QADC).
+- **AUC** do artigo é (1 + TPR − FPR)/2, a mesma `auc` do projeto.
+- **Parâmetros:** α e tenure foram ajustados com `maxiterMS = 20`; os valores
+  finais são α = 0,99, tenure = n/2, maxiterTS = 10·n, maxiterMS = 10.
