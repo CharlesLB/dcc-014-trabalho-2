@@ -182,3 +182,26 @@ com testes de conferência em `tests/test_artigo.py`.
 - **AUC** do artigo é (1 + TPR − FPR)/2, a mesma `auc` do projeto.
 - **Parâmetros:** α e tenure foram ajustados com `maxiterMS = 20`; os valores
   finais são α = 0,99, tenure = n/2, maxiterTS = 10·n, maxiterMS = 10.
+
+## D9. Fila 2: prioridade aos números do artigo, prazo 25/11 12:00 (00:53)
+
+Prazo para resultados e relatório: 25/11 às 12:00. A fila 1 foi parada (as
+execuções em andamento rodam de novo) e trocada pela `experiments/filas/fila2.yaml`,
+que o `experiments.fila` relê a cada minuto. Ordem de prioridade:
+
+1. E2a (resto da QADC): decide λ e gatilho do MST_FREQ.
+2. **E1-casos** (novo): MST com DA na leitura literal do artigo (`scale_base =
+   casos`), 9 bases × 10 folds × 5 sementes. Dá a comparação direta com a Tabela 3
+   sem o desvio de D2.
+3. **E4 baselines com DA, 1 semente**: o artigo roda uma vez por fold (média ± dp
+   nos 10 folds), então 1 semente é o mesmo desenho. Substitui as 3 sementes de D7.
+4. **MST com LR (8 bases) e SVM (7 bases), 1 semente**, para comparar com as
+   Tabelas 9 e 11 (ACC). Medido aqui: LR ≈ 1–2 ms e SVM ≈ 1–17 ms por avaliação.
+   Com as ~8 milhões de avaliações do MST na QADC, uma execução levaria ~4 h (LR) e
+   ~17 h (SVM); a QADC fica de fora com LR e SVM, e a SPECTF com SVM (~3 h por
+   execução) fica no fim da fila, só se der tempo. **As baselines com LR e SVM não
+   rodam**: custariam 5× o tempo do MST com o mesmo classificador.
+5. E2-P2 (GULOSO e MST) e E3 voltam a **3 sementes** por causa do prazo (D7 tinha
+   voltado a 5).
+
+O MST_FREQ do E2-P2 entra na fila quando o E2a terminar.

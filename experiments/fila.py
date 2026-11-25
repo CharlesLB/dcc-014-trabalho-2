@@ -28,7 +28,7 @@ from __future__ import annotations
 import argparse
 import sys
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from pathlib import Path
 
 import yaml
@@ -65,7 +65,10 @@ def plan(fila: dict) -> list:
     return [t[3] for t in todo]
 
 
-def run_queue(fila: dict, progress: bool = True) -> int:
+def run_queue(fila: dict, progress: bool = True, path: str | Path | None = None,
+              replanejar_s: float = 60.0) -> int:
+    """Roda a fila. Com ``path``, relê o arquivo e replaneja a cada ``replanejar_s``
+    segundos, para entradas novas ou mudadas valerem sem parar o que já roda."""
     specs = plan(fila)
     n_jobs = int(fila.get("n_jobs", 1))
     blas = int(fila.get("blas_threads", 1))
@@ -87,18 +90,38 @@ def run_queue(fila: dict, progress: bool = True) -> int:
                   f"f{rec['fold']} s{rec['seed']} f={rec['f_treino']:.4f} "
                   f"|S|={rec['tamanho_S_star']} {rec['tempo_s']:.1f}s", flush=True)
 
+    feitas = 0
     if n_jobs <= 1:
         limit_blas_threads(blas)
         for i, s in enumerate(specs, 1):
             _store(i, _exec_safe(s), s)
+        feitas = len(specs)
     else:
+        pend = list(specs)
+        running: dict = {}
+        ultimo = time.monotonic()
         with ProcessPoolExecutor(**pool_kwargs(n_jobs, blas)) as ex:
-            futs = {ex.submit(_exec_safe, s): s for s in specs}
-            for i, fut in enumerate(as_completed(futs), 1):
-                _store(i, fut.result(), futs[fut])
+            while pend or running:
+                if path is not None and time.monotonic() - ultimo >= replanejar_s:
+                    ultimo = time.monotonic()
+                    try:
+                        fila = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+                        ativos = {(str(_out(s)), s.key) for s in running.values()}
+                        pend = [s for s in plan(fila) if (str(_out(s)), s.key) not in ativos]
+                    except Exception as e:  # arquivo em edição: mantém o plano anterior
+                        print(f"[fila] replanejamento falhou ({e}); mantém o plano", flush=True)
+                while pend and len(running) < n_jobs:
+                    s = pend.pop(0)
+                    running[ex.submit(_exec_safe, s)] = s
+                done, _ = wait(list(running), timeout=replanejar_s if path else None,
+                               return_when=FIRST_COMPLETED)
+                for fut in done:
+                    s = running.pop(fut)
+                    feitas += 1
+                    _store(f"{feitas} (+{len(pend)} na fila)", fut.result(), s)
     if progress:
         print(f"[fila] concluído em {time.perf_counter() - t0:.1f}s", flush=True)
-    return len(specs)
+    return feitas
 
 
 def main(argv=None) -> int:
@@ -113,7 +136,7 @@ def main(argv=None) -> int:
             print(s.campanha, s.key, "max_evals=", s.max_evals, "tempo=", s.time_budget)
         print(f"{len(specs)} execuções")
         return 0
-    run_queue(fila)
+    run_queue(fila, path=a.fila)
     return 0
 
 

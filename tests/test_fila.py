@@ -61,3 +61,16 @@ def test_cli_listar(tmp_path, capsys):
     q.write_text(yaml.safe_dump({"entradas": [{"config": a}]}))
     assert fila.main([str(q), "--listar"]) == 0
     assert "2 execuções" in capsys.readouterr().out
+
+
+def test_replaneja_pelo_arquivo(tmp_path):
+    a = _write(tmp_path, "a.yaml", _cfg(tmp_path, "A"))
+    b = _write(tmp_path, "b.yaml", _cfg(tmp_path, "B"))
+    q = tmp_path / "fila.yaml"
+    # o arquivo já tem a entrada B; a fila começa só com A e replaneja na hora
+    q.write_text(yaml.safe_dump({"n_jobs": 2, "entradas": [{"config": a}, {"config": b}]}))
+    n = fila.run_queue({"n_jobs": 2, "entradas": [{"config": a}]}, progress=False,
+                       path=q, replanejar_s=0)
+    assert n == 4
+    assert len(runlog.read(tmp_path / "A" / "runs.jsonl")) == 2
+    assert len(runlog.read(tmp_path / "B" / "runs.jsonl")) == 2

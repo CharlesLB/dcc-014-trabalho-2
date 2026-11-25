@@ -1,0 +1,11 @@
+# Reprodução com a leitura literal do artigo: n = casos do treino em tenure e maxiterTS
+# (seção "Notation" do artigo). Mesmo desenho do E1; só muda scale_base.
+campanha: E1-casos-DA
+bases: [parkinson, qadc, spectf, wdbc, wpbc, alzheimer, cervical, glioma, mesothelioma]
+classificadores: [DA]
+variantes: [MST]
+folds: todos
+sementes: [0, 1, 2, 3, 4]
+params: {beta: 0.99, alpha: 0.99, scale_base: casos, maxiter_ms: 10, outer_stop_strict: false}
+n_jobs: 7
+blas_threads: 1
