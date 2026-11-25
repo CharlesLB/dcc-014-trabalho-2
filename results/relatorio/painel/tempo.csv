@@ -8,3 +8,21 @@ alzheimer,Alzheimer,"Artigo (Pascal, i9-10920X)",1.63,0.089
 cervical,Câncer cervical,"Artigo (Pascal, i9-10920X)",1.386,0.021
 glioma,Glioma,"Artigo (Pascal, i9-10920X)",1.463,0.062
 mesothelioma,Mesotelioma,"Artigo (Pascal, i9-10920X)",3.125,0.099
+parkinson,Parkinson,"Grupo MST (Python, Ryzen 9 7950X)",4.179,1.992
+qadc,QADC,"Grupo MST (Python, Ryzen 9 7950X)",706.544,389.991
+spectf,SPECTF,"Grupo MST (Python, Ryzen 9 7950X)",67.474,20.096
+wdbc,WDBC,"Grupo MST (Python, Ryzen 9 7950X)",11.938,4.323
+wpbc,WPBC,"Grupo MST (Python, Ryzen 9 7950X)",11.976,4.189
+alzheimer,Alzheimer,"Grupo MST (Python, Ryzen 9 7950X)",10.562,5.052
+cervical,Câncer cervical,"Grupo MST (Python, Ryzen 9 7950X)",5.508,3.848
+glioma,Glioma,"Grupo MST (Python, Ryzen 9 7950X)",1.619,0.583
+mesothelioma,Mesotelioma,"Grupo MST (Python, Ryzen 9 7950X)",11.727,6.394
+parkinson,Parkinson,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",5.518,2.232
+qadc,QADC,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",770.421,372.721
+spectf,SPECTF,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",68.338,19.976
+wdbc,WDBC,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",14.705,3.858
+wpbc,WPBC,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",12.404,4.075
+alzheimer,Alzheimer,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",13.697,4.901
+cervical,Câncer cervical,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",5.492,3.655
+glioma,Glioma,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",1.597,0.6
+mesothelioma,Mesotelioma,"Grupo MST_FREQ (Python, Ryzen 9 7950X)",13.975,6.723

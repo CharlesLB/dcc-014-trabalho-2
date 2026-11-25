@@ -140,12 +140,25 @@ WPBC 55,4%, Mesotelioma 51,4%), sem chegar ao artigo. Tabelas completas em
 
 ![tempo](relatorio/comparacao/fig_tempo.png)
 
-O artigo roda em Object-Pascal, num Intel i9-10920X. Lá o MST leva de 0,5 s
-(Parkinson) a 72 s (QADC) por fold. Em Python, com uma LDA vetorizada, leva de 2,7 s
-a 1 052 s, ou seja, de 2 a 19 vezes mais. Com `n` = variáveis, a busca avalia muito
-mais subconjuntos (QADC: 7,9 milhões de avaliações por execução). Os tempos do grupo
-vêm de duas máquinas (Windows/Zen 2 com 7 processos e Linux/Zen 4 com 31 processos),
-então a comparação é só qualitativa.
+| base | artigo (Pascal, i9-10920X) | grupo MST | grupo MST_FREQ |
+|---|---|---|---|
+| Parkinson | 0,53 ± 0,03 | 4,2 ± 2,0 | 5,5 ± 2,2 |
+| QADC | 71,75 ± 6,49 | 706,5 ± 390,0 | 770,4 ± 372,7 |
+| SPECTF | 9,09 ± 0,62 | 67,5 ± 20,1 | 68,3 ± 20,0 |
+| WDBC | 1,19 ± 0,02 | 11,9 ± 4,3 | 14,7 ± 3,9 |
+| WPBC | 1,02 ± 0,04 | 12,0 ± 4,2 | 12,4 ± 4,1 |
+| Alzheimer | 1,63 ± 0,09 | 10,6 ± 5,1 | 13,7 ± 4,9 |
+| Câncer cervical | 1,39 ± 0,02 | 5,5 ± 3,8 | 5,5 ± 3,7 |
+| Glioma | 1,46 ± 0,06 | 1,6 ± 0,6 | 1,6 ± 0,6 |
+| Mesotelioma | 3,13 ± 0,10 | 11,7 ± 6,4 | 14,0 ± 6,7 |
+
+Segundos por fold, P1, 5 sementes. MST e MST_FREQ do grupo vêm da campanha
+E2-P1-tempo: os dois rodaram juntos na mesma máquina (Ryzen 9 7950X, Linux, 16
+processos, um por núcleo físico), então se comparam diretamente. O MST_FREQ leva de
+0% a 32% mais tempo, porque em P1 avalia mais subconjuntos antes da parada natural.
+Contra o artigo, o grupo leva de 1,1 vez (Glioma) a 12 vezes (WPBC) mais tempo: outra
+linguagem, outra máquina, e com `n` = variáveis a busca avalia muitos subconjuntos
+(QADC: 8 milhões por execução).
 
 ### MST × baselines com DA (Tabelas 3 a 8)
 
@@ -351,17 +364,19 @@ no E2-P1. Fonte: `relatorio/tabela4.md` (e `.tex`).
 |---|---|---|
 | Solução encontrada (20 de 31 variáveis) | texture_mean, compactness_mean, concavity_mean, concave_points_mean, symmetry_mean, fractal_dimension_mean, texture_se, perimeter_se, area_se, smoothness_se, concavity_se, concave_points_se, symmetry_se, fractal_dimension_se, texture_worst, perimeter_worst, area_worst, smoothness_worst, compactness_worst, tumor_size | a mesma |
 | Função objetivo | 0,8434 | 0,8434 |
-| Tempo (s) | 16,7 | 15,2 |
+| Tempo (s) | 10,0 | 11,5 |
 | Iterações | 5 410 locais em 12 buscas | 5 272 locais em 12 buscas |
 | Agregado: f (%) | 85,34 ± 0,62 | 85,34 ± 0,62 |
 | Agregado: tamanho de S* | 17,6 ± 1,6 | 17,6 ± 1,6 |
-| Agregado: tempo (s) | 19,1 ± 7,1 | 17,9 ± 6,9 |
+| Agregado: tempo (s) | 12,0 ± 4,9 | 12,4 ± 4,8 |
 | Agregado: iterações locais | 6 261 ± 1 751 | 6 410 ± 2 043 |
 
 Na execução representativa, os dois chegam à mesma solução, o que é o caso típico
-(veja a seção 6.3). Os tempos vêm de máquinas diferentes: o MST do E2-P1 rodou em
-Windows/Zen 2 com 7 processos, e o MST_FREQ em Linux/Zen 4 com 31 processos. Por
-isso a comparação de tempo entre as duas colunas não vale; a de iterações vale.
+(veja a seção 6.3). Os tempos vêm da campanha E2-P1-tempo: MST e MST_FREQ
+rodados juntos na mesma máquina (Ryzen 9 7950X, 16 processos, um por núcleo físico),
+com resultados idênticos aos do E2-P1 nas 900 execuções. Por isso os tempos das duas
+colunas se comparam diretamente: o MST_FREQ é um pouco mais lento (12,4 s contra
+12,0 s por fold na WPBC) porque, em P1, avalia um pouco mais de subconjuntos.
 
 Figura da trajetória (WPBC): `relatorio/fig_wpbc.png`.
 
@@ -388,9 +403,10 @@ Figura da trajetória (WPBC): `relatorio/fig_wpbc.png`.
   rótulos; a QADC tem 65 variáveis em vez de 67. Câncer cervical usa o alvo
   `Schiller`, o único que reproduz 63/605. No Glioma, uma linha repetida foi
   removida (`data/NOTES.md`).
-- **Tempos de três origens** (código antigo e código rápido da LDA; Windows e
-  Linux). Os resultados numéricos são idênticos entre origens (verificado em 820
-  execuções sobrepostas), mas os tempos só se comparam dentro da mesma origem.
+- **Tempos.** Os resultados numéricos são idênticos entre máquinas e versões do
+  código (verificado em 820 + 900 execuções sobrepostas). Todos os tempos de MST ×
+  MST_FREQ citados aqui vêm de uma só campanha (E2-P1-tempo, D12). Os tempos das
+  outras campanhas só se comparam dentro da mesma campanha.
 - **Sementes:** E1, E1-casos, E2-P1, E2-P2 e E3 com 5 sementes, como na spec. O E0
   e o E2a usaram 2 sementes, o E1b e o E5 1 semente, conforme as configs.
 - **Desvios-padrão do artigo** nas métricas de validação são pequenos demais para

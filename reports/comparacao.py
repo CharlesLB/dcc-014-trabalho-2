@@ -305,7 +305,7 @@ def build(resultados: Path, saida: Path) -> str:
 
     # tempo
     st = {"Artigo": {b: A.TEMPO["DA"][b] for b in A.BASES}}
-    p1 = por_fold(df, "E2-P1", "MST", "DA")
+    p1 = por_fold(df, "E2-P1-tempo", "MST", "DA")
     if not p1.empty:
         st["Grupo (n = variáveis)"] = resumo(p1, "tempo_s")
     if not pfs["Grupo (n = casos)"].empty:
@@ -314,7 +314,7 @@ def build(resultados: Path, saida: Path) -> str:
     md.append("\n## 3. Tempo do MST com DA por fold (Tabela 2)\n")
     md.append("![tempo](fig_tempo.png)\n")
     md.append("Artigo: Object-Pascal (Delphi 10.3), Intel i9-10920X. Grupo, n = variáveis: "
-              "MST do E2-P1 (Python, código rápido da LDA, Windows/AMD Zen 2, 7 processos). "
+              "MST do E2-P1-tempo (Python, código rápido da LDA, Ryzen 9 7950X, 16 processos). "
               "Grupo, n = casos: E1-casos (Python, código rápido, Ryzen 9 7950X com 31 "
               "processos em 16 núcleos). Comparação só qualitativa.\n")
     cab = list(st)

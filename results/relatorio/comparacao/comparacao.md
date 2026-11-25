@@ -85,19 +85,19 @@ Média ± desvio-padrão entre os 10 folds, como no artigo. Com várias sementes
 
 ![tempo](fig_tempo.png)
 
-Artigo: Object-Pascal (Delphi 10.3), Intel i9-10920X. Grupo, n = variáveis: MST do E2-P1 (Python, código rápido da LDA, Windows/AMD Zen 2, 7 processos). Grupo, n = casos: E1-casos (Python, código rápido, Ryzen 9 7950X com 31 processos em 16 núcleos). Comparação só qualitativa.
+Artigo: Object-Pascal (Delphi 10.3), Intel i9-10920X. Grupo, n = variáveis: MST do E2-P1-tempo (Python, código rápido da LDA, Ryzen 9 7950X, 16 processos). Grupo, n = casos: E1-casos (Python, código rápido, Ryzen 9 7950X com 31 processos em 16 núcleos). Comparação só qualitativa.
 
 | base | Artigo | Grupo (n = variáveis) | Grupo (n = casos) |
 |---|---|---|---|
-| Parkinson | 0.53 ± 0.03 | 6.91 ± 3.06 | 7.68 ± 1.18 |
-| QADC | 71.75 ± 6.49 | 1051.95 ± 574.56 | 506.21 ± 143.02 |
-| SPECTF | 9.09 ± 0.62 | 98.66 ± 27.50 | 104.78 ± 25.93 |
-| WDBC | 1.19 ± 0.02 | 17.86 ± 6.30 | 50.25 ± 8.92 |
-| WPBC | 1.02 ± 0.04 | 19.10 ± 5.84 | 21.99 ± 4.59 |
-| Alzheimer | 1.63 ± 0.09 | 12.06 ± 5.79 | 85.52 ± 16.31 |
-| Câncer cervical | 1.39 ± 0.02 | 8.15 ± 5.51 | 27.04 ± 11.15 |
-| Glioma | 1.46 ± 0.06 | 2.71 ± 0.89 | 21.21 ± 4.71 |
-| Mesotelioma | 3.12 ± 0.10 | 18.76 ± 8.96 | 35.99 ± 8.63 |
+| Parkinson | 0.53 ± 0.03 | 4.18 ± 1.99 | 7.68 ± 1.18 |
+| QADC | 71.75 ± 6.49 | 706.54 ± 389.99 | 506.21 ± 143.02 |
+| SPECTF | 9.09 ± 0.62 | 67.47 ± 20.10 | 104.78 ± 25.93 |
+| WDBC | 1.19 ± 0.02 | 11.94 ± 4.32 | 50.25 ± 8.92 |
+| WPBC | 1.02 ± 0.04 | 11.98 ± 4.19 | 21.99 ± 4.59 |
+| Alzheimer | 1.63 ± 0.09 | 10.56 ± 5.05 | 85.52 ± 16.31 |
+| Câncer cervical | 1.39 ± 0.02 | 5.51 ± 3.85 | 27.04 ± 11.15 |
+| Glioma | 1.46 ± 0.06 | 1.62 ± 0.58 | 21.21 ± 4.71 |
+| Mesotelioma | 3.12 ± 0.10 | 11.73 ± 6.39 | 35.99 ± 8.63 |
 
 ## 4. MST × baselines com DA (Tabelas 3 a 8)
 
