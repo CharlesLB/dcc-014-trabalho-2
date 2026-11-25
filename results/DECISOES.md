@@ -127,3 +127,37 @@ tentativa.
 - **E5 adiantado:** não depende de nenhuma outra campanha.
 - Com isso rodam até 28 processos nas 32 threads. Os resultados não mudam; o
   `tempo_s` fica maior nesse período (ver D5).
+
+## D7. Código rápido da LDA, resultados do ianfefe e fila única (24/11, 23:53)
+
+- **Merge do `origin/master`:** o commit 88ed288 (ianfefe) trouxe a
+  `LDASubsetEvaluator`. Ela pré-calcula Σ_z = ZᵀZ por fold, avalia a vizinhança em
+  lote e volta para a `FastLDA` original quando algum autovalor fica perto do corte
+  do posto (10⁻¹⁰ a 10⁻⁶) ou algum caso de treino fica a menos de 10⁻⁷ (relativo)
+  da fronteira. Como f depende só do número de acertos e de |S|, decisões iguais
+  dão f igual bit a bit. Revisado: o erro esperado do caminho rápido (≈ κ·ε, com
+  κ ≤ ~10⁸ no caminho de posto completo) fica cerca de duas ordens abaixo da margem.
+- **Conferência:** o ianfefe rodou de novo, com o código novo, execuções que já
+  tínhamos. Nas 820 execuções em comum (E1, E2-P1, E2a), `S*`, `f_treino`,
+  `n_evals`, `n_cache_hits`, iterações e reinícios são idênticos. A suíte (722
+  testes) passa. Ganho medido: QADC ≈ 3×, SPECTF ≈ 5×, demais bases 2 a 5×.
+- **Resultados adotados:** E1 (450) e E2-P1 (1 350) ficaram completos com as
+  execuções do ianfefe; o E2a ganhou 610 execuções. Os registros mantêm o campo
+  `ambiente`: as execuções vêm de três origens (este Linux com o código antigo,
+  commit 160e357/323792d; o Windows 11 do ianfefe, CPU AMD família 23 modelo 113
+  (Zen 2), commit 39d5953; e este Linux com o código novo). **O `tempo_s` só é
+  comparável dentro da mesma origem.** Nas tabelas, tempos são indicativos.
+- **Fila única:** `experiments/fila.py` junta várias configs num só pool de 31
+  processos (32 threads), com a retomada de cada campanha e as execuções mais
+  longas primeiro. A ordem só muda quando cada execução começa. Com 31 processos
+  em 16 núcleos físicos, o `tempo_s` fica mais alto que com 7 (SMT).
+- **Desenho revisto com o código rápido:**
+  - E2a volta ao desenho completo da config (2 sementes, 10 folds); faltavam 215
+    execuções da QADC. Substitui o corte de D5.
+  - E2-P2 e E3 voltam a **5 sementes**: a estimativa nova de cada um fica bem
+    abaixo de 12 h. Substitui a redução de D6. As 90 execuções do E2-P2 já feitas
+    (orçamento lido do E1) têm as mesmas chaves e foram mantidas.
+  - E4 baselines: 3 sementes (estimativa com 5 ≈ 15 h de máquina só para ele) e
+    orçamento de tempo lido do MST do **E2-P1** (`tempo_de`), cujas 450 execuções
+    vêm todas da mesma origem (código novo, Windows do ianfefe). O E1 mistura
+    código antigo e novo, e o orçamento ficaria 3× maior na QADC em 40 dos 50 folds.

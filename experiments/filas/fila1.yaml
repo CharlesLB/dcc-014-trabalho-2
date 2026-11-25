@@ -1,0 +1,17 @@
+# Fila 1 (25/11): tudo o que não depende da escolha de lambda e gatilho.
+n_jobs: 31
+blas_threads: 1
+custo_base: {qadc: 1000, spectf: 100, wpbc: 20, wdbc: 20, mesothelioma: 20, alzheimer: 12, cervical: 8, parkinson: 7, glioma: 3}
+entradas:
+  - config: experiments/configs/E2a_ajuste.yaml
+    prioridade: 0
+  - config: experiments/configs/E2_P2.yaml
+    set: ["variantes=[GULOSO, MST]"]
+    prioridade: 1
+  - config: experiments/configs/E3_ablacoes.yaml
+    prioridade: 1
+  - config: experiments/configs/E4_outros_classificadores.yaml
+    prioridade: 2
+  - config: experiments/configs/E4_baselines.yaml
+    set: ["sementes=[0, 1, 2]", "tempo_de=results/E2-P1/runs.jsonl"]
+    prioridade: 3
