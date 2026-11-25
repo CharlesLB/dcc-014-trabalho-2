@@ -10,3 +10,33 @@
   9/40 MST parkinson f9 s0 f=0.9298 |S|=6 16.6s
   10/40 MST parkinson f3 s0 f=0.9346 |S|=7 31.4s
   11/40 MST wpbc f1 s0 f=0.8663 |S|=18 27.3s
+  12/40 MST wpbc f3 s0 f=0.8617 |S|=15 92.3s
+  13/40 MST wpbc f6 s0 f=0.8551 |S|=18 102.0s
+  14/40 MST wpbc f0 s0 f=0.8434 |S|=20 123.2s
+  15/40 MST wpbc f5 s0 f=0.8548 |S|=19 107.3s
+  16/40 GULOSO parkinson f0 s0 f=0.8907 |S|=4 0.0s
+  17/40 GULOSO parkinson f1 s0 f=0.8633 |S|=2 0.0s
+  18/40 GULOSO parkinson f2 s0 f=0.8859 |S|=2 0.0s
+  19/40 GULOSO parkinson f3 s0 f=0.9185 |S|=5 0.1s
+  20/40 GULOSO parkinson f4 s0 f=0.8959 |S|=5 0.0s
+  21/40 GULOSO parkinson f5 s0 f=0.8866 |S|=2 0.0s
+  22/40 GULOSO parkinson f6 s0 f=0.8641 |S|=2 0.0s
+  23/40 GULOSO parkinson f7 s0 f=0.8697 |S|=2 0.0s
+  24/40 GULOSO parkinson f8 s0 f=0.9021 |S|=5 0.0s
+  25/40 GULOSO parkinson f9 s0 f=0.8805 |S|=3 0.0s
+  26/40 GULOSO wpbc f0 s0 f=0.7716 |S|=1 0.0s
+  27/40 GULOSO wpbc f1 s0 f=0.7828 |S|=1 0.0s
+  28/40 GULOSO wpbc f2 s0 f=0.7661 |S|=1 0.0s
+  29/40 GULOSO wpbc f3 s0 f=0.8096 |S|=4 0.0s
+  30/40 GULOSO wpbc f4 s0 f=0.8093 |S|=5 0.0s
+  31/40 GULOSO wpbc f5 s0 f=0.7772 |S|=1 0.0s
+  32/40 GULOSO wpbc f6 s0 f=0.7824 |S|=2 0.0s
+  33/40 GULOSO wpbc f7 s0 f=0.7824 |S|=2 0.0s
+  34/40 GULOSO wpbc f8 s0 f=0.7784 |S|=1 0.0s
+  35/40 MST wpbc f8 s0 f=0.8504 |S|=18 37.9s
+  36/40 GULOSO wpbc f9 s0 f=0.7781 |S|=2 0.0s
+  37/40 MST wpbc f2 s0 f=0.8539 |S|=22 152.8s
+  38/40 MST wpbc f7 s0 f=0.8499 |S|=17 169.3s
+  39/40 MST wpbc f4 s0 f=0.8502 |S|=16 277.5s
+  40/40 MST wpbc f9 s0 f=0.8510 |S|=16 170.6s
+[E5-fuga] concluído em 309.2s -> results/E5-fuga/runs.jsonl

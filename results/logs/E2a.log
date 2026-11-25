@@ -74,3 +74,5 @@
   73/150 MST_FREQ parkinson f4 s0 f=0.9346 |S|=7 18.8s
   74/150 MST_FREQ parkinson f4 s0 f=0.9346 |S|=7 15.8s
   75/150 MST_FREQ parkinson f4 s0 f=0.9346 |S|=7 15.7s
+/home/charles/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
