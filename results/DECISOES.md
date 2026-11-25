@@ -86,3 +86,12 @@ maiores do que com uma campanha sozinha, por causa de cache L3 e banda de memór
 compartilhados. Dentro de uma campanha, as variantes rodam intercaladas nas
 mesmas condições, então as comparações de tempo entre variantes continuam justas.
 Comparações de tempo com o artigo (Pascal, outra máquina) já eram só qualitativas.
+
+## D4. Pausa das campanhas (24/11)
+
+E1 e E2-P1 foram interrompidos às 08:34 de 24/11 para desligar a máquina e
+retomados às 21:07 do mesmo dia pela chave de execução (`run_key`). Os registros
+estavam íntegros (91 e 525 linhas válidas). As 14 execuções da QADC que estavam em
+andamento foram perdidas e rodaram de novo do zero; como o MST é determinístico
+dada a semente, o resultado não muda. Os tempos dessas execuções vêm da segunda
+tentativa.
