@@ -48,7 +48,7 @@ Opções úteis de `experiments.run`:
   processos, pensando num Ryzen 7 de 8 núcleos, e BLAS com 1 thread por processo
   (`blas_threads: 1`). O paralelismo é entre execuções, então o tempo de cada
   execução continua comparável. A GPU não é usada: os classificadores são
-  pequenos e rodam na CPU.
+  pequenos e rodam na CPU (ver "Desempenho" abaixo).
 - `--listar` mostra as execuções sem rodar.
 - `--set chave=valor` sobrescreve a config, por exemplo `--set "sementes=[0]"`.
 - As campanhas retomam de onde pararam: execuções já gravadas em `runs.jsonl`
@@ -78,6 +78,25 @@ experiments/       run.py e configs/*.yaml (E0 a E5, smoke)
 reports/           tabela4.py, tabelas.py, figuras.py, fugas.py
 tests/             testes (pytest)
 ```
+
+## Desempenho
+
+Com `DA` e `DA_PASCAL`, o objetivo usa `LDASubsetEvaluator`
+(`classifiers.py`): médias, desvios e Σ_z = ZᵀZ são calculados uma vez por fold,
+e a vizinhança inteira da Busca Tabu é avaliada em lote (`evaluate_many`), com
+uma matriz k × k por subconjunto em vez de uma SVD n × k. As decisões são as
+mesmas da `FastLDA`: casos perto do corte do posto ou da fronteira de decisão
+voltam para o ajuste original. Conferido contra 42 execuções gravadas
+(E0, E1, E1b, E2-P1, nas nove bases): `S*`, `f`, `n_evals`, acertos de cache,
+iterações e métricas de validação idênticos. Ganho medido na mesma máquina:
+2× na Parkinson, 8 a 10× na WPBC e WDBC, 13× na SPECTF, 18× na Alzheimer e 5 a 8× na QADC (menos nas fases com muitas matrizes de posto incompleto).
+
+- `MST_LDA_RAPIDA=0` desliga o avaliador e volta ao ajuste por subconjunto.
+- Os `tempo_s` mudam com a versão do código. Para comparar tempos (ou usar
+  `tempo_de` nas baselines), use execuções da mesma versão.
+- GPU: cada avaliação é uma matriz de ~258 × 28. Mesmo em lote, a vizinhança
+  tem ~1 100 matrizes 28 × 28, pequenas demais para compensar a transferência e
+  o lançamento de kernels; o ganho real vem de não refazer o ajuste.
 
 ## Decisões de implementação
 

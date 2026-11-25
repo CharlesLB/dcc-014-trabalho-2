@@ -120,3 +120,123 @@ def fit_decision(name: str, X_train, y_train, X_eval, seed: int = 0) -> np.ndarr
         warnings.simplefilter("ignore")
         clf.fit(X_train, y_train)
         return clf.decision_function(X_eval)
+
+
+class LDASubsetEvaluator:
+    """Acurácia de ressubstituição da FastLDA para muitos subconjuntos de colunas.
+
+    Dá as mesmas decisões que ``FastLDA().fit(X[:, S], y).predict(X[:, S])``, mas
+    sem refazer o ajuste do zero a cada subconjunto:
+
+    * médias por classe, desvios-padrão e a matriz Σ_z = ZᵀZ (m × m) são
+      calculados uma vez por (base, fold). Para um subconjunto S basta recortar
+      Σ_z[S, S], uma matriz k × k, em vez de fazer a SVD de Z[:, S] (n × k);
+    * vários subconjuntos (a vizinhança inteira da Busca Tabu) são resolvidos
+      juntos, com operações em lote do numpy e um único produto matricial para
+      as predições.
+
+    Os autovalores de Σ_z[S, S] são os quadrados dos valores singulares de
+    Z[:, S], então o posto com tolerância ``tol`` é o mesmo da FastLDA. Para
+    garantir decisões idênticas, o subconjunto volta para a FastLDA original
+    quando algum autovalor fica perto do corte do posto ou quando algum caso de
+    treino fica perto da fronteira de decisão (onde o arredondamento poderia
+    trocar o lado).
+    """
+
+    # Faixa de autovalores considerada ambígua em torno do corte tol² (1e-8).
+    _LAM_LO = 1e-10
+    _LAM_HI = 1e-6
+    # Margem relativa mínima |x·w + b| para aceitar a decisão sem refazer.
+    _MARGIN = 1e-7
+
+    def __init__(self, X: np.ndarray, y: np.ndarray, tol: float = 1e-4,
+                 equal_priors: bool = False):
+        X = np.asarray(X, dtype=float)
+        y = np.asarray(y)
+        classes = np.unique(y)
+        if classes.size != 2:
+            raise ValueError("LDASubsetEvaluator exige exatamente duas classes")
+        self.X = X
+        self.y = y
+        self.tol = tol
+        self.equal_priors = equal_priors
+        mask1 = y == classes[1]
+        self.mask1 = mask1
+        X0, X1 = X[~mask1], X[mask1]
+        self.mu0, self.mu1 = X0.mean(axis=0), X1.mean(axis=0)
+        n = X.shape[0]
+        Xc = np.vstack([X0 - self.mu0, X1 - self.mu1])
+        std = Xc.std(axis=0)
+        std[std == 0] = 1.0
+        self.std = std
+        Z = Xc / std / np.sqrt(n)
+        self.R = Z.T @ Z
+        self.diff_z = (self.mu1 - self.mu0) / std
+        self.mid = self.mu1 + self.mu0
+        p1 = mask1.mean()
+        self.prior = 0.0 if equal_priors else float(np.log(p1 / (1.0 - p1)))
+        self.n_fallback = 0
+        self._deficient_rate = 0.0
+
+    def _exact(self, cols: np.ndarray) -> float:
+        self.n_fallback += 1
+        Xs = self.X[:, cols]
+        clf = FastLDA(tol=self.tol, equal_priors=self.equal_priors)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            pred = clf.fit(Xs, self.y).predict(Xs)
+        return float(np.mean(pred == self.y))
+
+    def accuracy_many(self, subsets: list) -> np.ndarray:
+        """Acurácia de ressubstituição para cada subconjunto (listas de índices)."""
+        out = np.empty(len(subsets))
+        groups: dict[int, list[int]] = {}
+        for i, S in enumerate(subsets):
+            groups.setdefault(len(S), []).append(i)
+        for k, pos in groups.items():
+            idx = np.array([sorted(subsets[i]) for i in pos], dtype=np.intp).reshape(len(pos), k)
+            out[pos] = self._accuracy_block(idx)
+        return out
+
+    def _accuracy_block(self, idx: np.ndarray) -> np.ndarray:
+        g, k = idx.shape
+        Rb = self.R[idx[:, :, None], idx[:, None, :]]
+        d = self.diff_z[idx]
+        tol2 = self.tol ** 2
+        wz = np.zeros((g, k))
+        if self._deficient_rate > 0.5:
+            # Muitos subconjuntos com posto incompleto (ex.: QADC): uma eigh direta
+            # sai mais barata que eigvalsh + eigh.
+            lam, V = np.linalg.eigh(Rb)
+            ambiguous = ((lam > self._LAM_LO) & (lam < self._LAM_HI)).any(axis=1)
+            keep = lam > tol2
+            coef = np.einsum("gkr,gk->gr", V, d)
+            coef = np.where(keep, coef / np.where(keep, lam, 1.0), 0.0)
+            wz = np.einsum("gkr,gr->gk", V, coef)
+            deficient = (lam[:, 0] < self._LAM_HI) & ~ambiguous
+        else:
+            lam = np.linalg.eigvalsh(Rb)
+            ambiguous = ((lam > self._LAM_LO) & (lam < self._LAM_HI)).any(axis=1)
+            full = lam[:, 0] >= self._LAM_HI
+            if full.any():
+                wz[full] = np.linalg.solve(Rb[full], d[full][:, :, None])[:, :, 0]
+            deficient = ~full & ~ambiguous
+            if deficient.any():
+                lam_d, V = np.linalg.eigh(Rb[deficient])
+                keep = lam_d > tol2
+                coef = np.einsum("gkr,gk->gr", V, d[deficient])
+                coef = np.where(keep, coef / np.where(keep, lam_d, 1.0), 0.0)
+                wz[deficient] = np.einsum("gkr,gr->gk", V, coef)
+        # média móvel da fração com posto incompleto, para escolher o caminho seguinte
+        self._deficient_rate = 0.8 * self._deficient_rate + 0.2 * float(deficient.mean())
+        w = wz / self.std[idx]
+        b = -0.5 * np.einsum("gk,gk->g", self.mid[idx], w) + self.prior
+        W = np.zeros((g, self.X.shape[1]))
+        np.put_along_axis(W, idx, w, axis=1)
+        D = self.X @ W.T + b                       # n × g
+        scale = np.abs(self.X) @ np.abs(W).T + np.abs(b)
+        unsure = (np.abs(D) <= self._MARGIN * scale).any(axis=0)
+        acc = ((D > 0) == self.mask1[:, None]).mean(axis=0)
+        for j in np.flatnonzero(ambiguous | unsure):
+            acc[j] = self._exact(idx[j])
+        return acc
