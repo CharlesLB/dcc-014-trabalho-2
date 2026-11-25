@@ -1,0 +1,163 @@
+chave,base,nome,medida,metodo,artigo,grupo
+parkinson|f_treino|MST,parkinson,Parkinson,f (treino),MST,83.76,93.084
+parkinson|f_treino|GA,parkinson,Parkinson,f (treino),GA,83.04,93.174
+parkinson|f_treino|GWO,parkinson,Parkinson,f (treino),GWO,83.31,91.597
+parkinson|f_treino|PSO,parkinson,Parkinson,f (treino),PSO,82.69,93.145
+parkinson|f_treino|WOA,parkinson,Parkinson,f (treino),WOA,82.56,91.268
+parkinson|f_treino|FPA,parkinson,Parkinson,f (treino),FPA,82.84,92.028
+qadc|f_treino|MST,qadc,QADC,f (treino),MST,83.95,89.598
+qadc|f_treino|GA,qadc,QADC,f (treino),GA,82.96,89.028
+qadc|f_treino|GWO,qadc,QADC,f (treino),GWO,83.25,86.241
+qadc|f_treino|PSO,qadc,QADC,f (treino),PSO,82.68,89.46
+qadc|f_treino|WOA,qadc,QADC,f (treino),WOA,82.27,86.228
+qadc|f_treino|FPA,qadc,QADC,f (treino),FPA,82.6,87.804
+spectf|f_treino|MST,spectf,SPECTF,f (treino),MST,81.49,88.558
+spectf|f_treino|GA,spectf,SPECTF,f (treino),GA,80.53,88.371
+spectf|f_treino|GWO,spectf,SPECTF,f (treino),GWO,80.94,84.161
+spectf|f_treino|PSO,spectf,SPECTF,f (treino),PSO,80.15,88.207
+spectf|f_treino|WOA,spectf,SPECTF,f (treino),WOA,79.63,85.765
+spectf|f_treino|FPA,spectf,SPECTF,f (treino),FPA,80.01,85.908
+wdbc|f_treino|MST,wdbc,WDBC,f (treino),MST,95.58,97.984
+wdbc|f_treino|GA,wdbc,WDBC,f (treino),GA,95.21,97.957
+wdbc|f_treino|GWO,wdbc,WDBC,f (treino),GWO,95.35,97.205
+wdbc|f_treino|PSO,wdbc,WDBC,f (treino),PSO,94.98,97.809
+wdbc|f_treino|WOA,wdbc,WDBC,f (treino),WOA,94.86,96.727
+wdbc|f_treino|FPA,wdbc,WDBC,f (treino),FPA,95.21,97.456
+wpbc|f_treino|MST,wpbc,WPBC,f (treino),MST,79.44,85.343
+wpbc|f_treino|GA,wpbc,WPBC,f (treino),GA,78.5,85.151
+wpbc|f_treino|GWO,wpbc,WPBC,f (treino),GWO,78.77,81.639
+wpbc|f_treino|PSO,wpbc,WPBC,f (treino),PSO,78.1,84.929
+wpbc|f_treino|WOA,wpbc,WPBC,f (treino),WOA,77.73,82.913
+wpbc|f_treino|FPA,wpbc,WPBC,f (treino),FPA,77.99,83.371
+alzheimer|f_treino|MST,alzheimer,Alzheimer,f (treino),MST,82.38,83.025
+alzheimer|f_treino|GA,alzheimer,Alzheimer,f (treino),GA,81.73,83.015
+alzheimer|f_treino|GWO,alzheimer,Alzheimer,f (treino),GWO,81.83,82.542
+alzheimer|f_treino|PSO,alzheimer,Alzheimer,f (treino),PSO,81.35,83.019
+alzheimer|f_treino|WOA,alzheimer,Alzheimer,f (treino),WOA,81.41,81.677
+alzheimer|f_treino|FPA,alzheimer,Alzheimer,f (treino),FPA,81.72,82.325
+cervical|f_treino|MST,cervical,Câncer cervical,f (treino),MST,91.53,91.266
+cervical|f_treino|GA,cervical,Câncer cervical,f (treino),GA,91.27,91.209
+cervical|f_treino|GWO,cervical,Câncer cervical,f (treino),GWO,91.26,90.855
+cervical|f_treino|PSO,cervical,Câncer cervical,f (treino),PSO,90.87,91.235
+cervical|f_treino|WOA,cervical,Câncer cervical,f (treino),WOA,90.65,90.743
+cervical|f_treino|FPA,cervical,Câncer cervical,f (treino),FPA,91.08,90.85
+glioma|f_treino|MST,glioma,Glioma,f (treino),MST,89.56,87.112
+glioma|f_treino|GA,glioma,Glioma,f (treino),GA,88.18,87.117
+glioma|f_treino|GWO,glioma,Glioma,f (treino),GWO,88.6,86.932
+glioma|f_treino|PSO,glioma,Glioma,f (treino),PSO,87.74,87.121
+glioma|f_treino|WOA,glioma,Glioma,f (treino),WOA,87.51,86.772
+glioma|f_treino|FPA,glioma,Glioma,f (treino),FPA,87.96,87.029
+mesothelioma|f_treino|MST,mesothelioma,Mesotelioma,f (treino),MST,75.03,79.646
+mesothelioma|f_treino|GA,mesothelioma,Mesotelioma,f (treino),GA,74.16,79.508
+mesothelioma|f_treino|GWO,mesothelioma,Mesotelioma,f (treino),GWO,74.27,75.899
+mesothelioma|f_treino|PSO,mesothelioma,Mesotelioma,f (treino),PSO,73.72,79.508
+mesothelioma|f_treino|WOA,mesothelioma,Mesotelioma,f (treino),WOA,73.66,76.121
+mesothelioma|f_treino|FPA,mesothelioma,Mesotelioma,f (treino),FPA,74.0,77.224
+parkinson|acc|MST,parkinson,Parkinson,ACC,MST,81.55,89.263
+parkinson|acc|GA,parkinson,Parkinson,ACC,GA,78.45,88.763
+parkinson|acc|GWO,parkinson,Parkinson,ACC,GWO,80.5,87.711
+parkinson|acc|PSO,parkinson,Parkinson,ACC,PSO,77.47,90.263
+parkinson|acc|WOA,parkinson,Parkinson,ACC,WOA,76.89,89.237
+parkinson|acc|FPA,parkinson,Parkinson,ACC,FPA,77.95,90.289
+qadc|acc|MST,qadc,QADC,ACC,MST,78.76,76.163
+qadc|acc|GA,qadc,QADC,ACC,GA,77.34,76.933
+qadc|acc|GWO,qadc,QADC,ACC,GWO,78.07,77.968
+qadc|acc|PSO,qadc,QADC,ACC,PSO,75.96,75.209
+qadc|acc|WOA,qadc,QADC,ACC,WOA,76.64,75.924
+qadc|acc|FPA,qadc,QADC,ACC,FPA,76.65,75.899
+spectf|acc|MST,spectf,SPECTF,ACC,MST,79.02,75.493
+spectf|acc|GA,spectf,SPECTF,ACC,GA,77.15,76.011
+spectf|acc|GWO,spectf,SPECTF,ACC,GWO,78.63,77.137
+spectf|acc|PSO,spectf,SPECTF,ACC,PSO,77.14,74.915
+spectf|acc|WOA,spectf,SPECTF,ACC,WOA,76.03,73.405
+spectf|acc|FPA,spectf,SPECTF,ACC,FPA,76.41,77.536
+wdbc|acc|MST,wdbc,WDBC,ACC,MST,95.96,96.093
+wdbc|acc|GA,wdbc,WDBC,ACC,GA,95.26,96.306
+wdbc|acc|GWO,wdbc,WDBC,ACC,GWO,95.43,96.657
+wdbc|acc|PSO,wdbc,WDBC,ACC,PSO,95.08,96.482
+wdbc|acc|WOA,wdbc,WDBC,ACC,WOA,94.56,96.306
+wdbc|acc|FPA,wdbc,WDBC,ACC,FPA,95.26,96.131
+wpbc|acc|MST,wpbc,WPBC,ACC,MST,77.76,70.226
+wpbc|acc|GA,wpbc,WPBC,ACC,GA,76.26,70.711
+wpbc|acc|GWO,wpbc,WPBC,ACC,GWO,77.26,70.237
+wpbc|acc|PSO,wpbc,WPBC,ACC,PSO,77.76,69.237
+wpbc|acc|WOA,wpbc,WPBC,ACC,WOA,72.74,70.711
+wpbc|acc|FPA,wpbc,WPBC,ACC,FPA,72.24,73.711
+alzheimer|acc|MST,alzheimer,Alzheimer,ACC,MST,79.01,82.162
+alzheimer|acc|GA,alzheimer,Alzheimer,ACC,GA,75.45,81.98
+alzheimer|acc|GWO,alzheimer,Alzheimer,ACC,GWO,76.87,82.047
+alzheimer|acc|PSO,alzheimer,Alzheimer,ACC,PSO,75.0,82.175
+alzheimer|acc|WOA,alzheimer,Alzheimer,ACC,WOA,74.1,81.269
+alzheimer|acc|FPA,alzheimer,Alzheimer,ACC,FPA,74.35,81.077
+cervical|acc|MST,cervical,Câncer cervical,ACC,MST,91.62,89.815
+cervical|acc|GA,cervical,Câncer cervical,ACC,GA,91.17,89.817
+cervical|acc|GWO,cervical,Câncer cervical,ACC,GWO,91.17,90.118
+cervical|acc|PSO,cervical,Câncer cervical,ACC,PSO,89.52,89.665
+cervical|acc|WOA,cervical,Câncer cervical,ACC,WOA,89.37,90.421
+cervical|acc|FPA,cervical,Câncer cervical,ACC,FPA,90.27,90.416
+glioma|acc|MST,glioma,Glioma,ACC,MST,88.3,86.751
+glioma|acc|GA,glioma,Glioma,ACC,GA,87.35,86.751
+glioma|acc|GWO,glioma,Glioma,ACC,GWO,87.71,86.751
+glioma|acc|PSO,glioma,Glioma,ACC,PSO,86.64,86.751
+glioma|acc|WOA,glioma,Glioma,ACC,WOA,86.28,86.87
+glioma|acc|FPA,glioma,Glioma,ACC,FPA,86.99,86.87
+mesothelioma|acc|MST,mesothelioma,Mesotelioma,ACC,MST,74.07,69.286
+mesothelioma|acc|GA,mesothelioma,Mesotelioma,ACC,GA,73.47,70.095
+mesothelioma|acc|GWO,mesothelioma,Mesotelioma,ACC,GWO,73.47,67.301
+mesothelioma|acc|PSO,mesothelioma,Mesotelioma,ACC,PSO,73.47,71.032
+mesothelioma|acc|WOA,mesothelioma,Mesotelioma,ACC,WOA,72.85,69.498
+mesothelioma|acc|FPA,mesothelioma,Mesotelioma,ACC,FPA,73.47,68.22
+parkinson|auc|MST,parkinson,Parkinson,AUC,MST,80.85,82.595
+parkinson|auc|GA,parkinson,Parkinson,AUC,GA,78.77,81.595
+parkinson|auc|GWO,parkinson,Parkinson,AUC,GWO,80.15,80.905
+parkinson|auc|PSO,parkinson,Parkinson,AUC,PSO,78.13,83.262
+parkinson|auc|WOA,parkinson,Parkinson,AUC,WOA,77.73,81.036
+parkinson|auc|FPA,parkinson,Parkinson,AUC,FPA,78.44,83.286
+qadc|auc|MST,qadc,QADC,AUC,MST,64.15,61.73
+qadc|auc|GA,qadc,QADC,AUC,GA,64.1,63.888
+qadc|auc|GWO,qadc,QADC,AUC,GWO,63.71,64.681
+qadc|auc|PSO,qadc,QADC,AUC,PSO,61.33,60.438
+qadc|auc|WOA,qadc,QADC,AUC,WOA,62.67,62.365
+qadc|auc|FPA,qadc,QADC,AUC,FPA,62.76,61.767
+spectf|auc|MST,spectf,SPECTF,AUC,MST,86.72,52.528
+spectf|auc|GA,spectf,SPECTF,AUC,GA,85.55,52.4
+spectf|auc|GWO,spectf,SPECTF,AUC,GWO,86.48,54.617
+spectf|auc|PSO,spectf,SPECTF,AUC,PSO,85.54,50.067
+spectf|auc|WOA,spectf,SPECTF,AUC,WOA,84.85,51.506
+spectf|auc|FPA,spectf,SPECTF,AUC,FPA,85.09,53.175
+wdbc|auc|MST,wdbc,WDBC,AUC,MST,94.86,95.098
+wdbc|auc|GA,wdbc,WDBC,AUC,GA,94.22,95.373
+wdbc|auc|GWO,wdbc,WDBC,AUC,GWO,94.44,95.761
+wdbc|auc|PSO,wdbc,WDBC,AUC,PSO,94.07,95.601
+wdbc|auc|WOA,wdbc,WDBC,AUC,WOA,93.17,95.483
+wdbc|auc|FPA,wdbc,WDBC,AUC,FPA,94.22,95.036
+wpbc|auc|MST,wpbc,WPBC,AUC,MST,77.31,53.846
+wpbc|auc|GA,wpbc,WPBC,AUC,GA,75.65,54.167
+wpbc|auc|GWO,wpbc,WPBC,AUC,GWO,76.31,50.917
+wpbc|auc|PSO,wpbc,WPBC,AUC,PSO,77.31,51.604
+wpbc|auc|WOA,wpbc,WPBC,AUC,WOA,69.75,55.083
+wpbc|auc|FPA,wpbc,WPBC,AUC,FPA,68.5,55.5
+alzheimer|auc|MST,alzheimer,Alzheimer,AUC,MST,76.85,80.025
+alzheimer|auc|GA,alzheimer,Alzheimer,AUC,GA,73.08,79.828
+alzheimer|auc|GWO,alzheimer,Alzheimer,AUC,GWO,74.6,79.834
+alzheimer|auc|PSO,alzheimer,Alzheimer,AUC,PSO,72.65,80.016
+alzheimer|auc|WOA,alzheimer,Alzheimer,AUC,WOA,71.66,79.277
+alzheimer|auc|FPA,alzheimer,Alzheimer,AUC,FPA,71.9,79.09
+cervical|auc|MST,cervical,Câncer cervical,AUC,MST,57.07,50.967
+cervical|auc|GA,cervical,Câncer cervical,AUC,GA,55.99,50.967
+cervical|auc|GWO,cervical,Câncer cervical,AUC,GWO,56.9,49.75
+cervical|auc|PSO,cervical,Câncer cervical,AUC,PSO,55.66,50.884
+cervical|auc|WOA,cervical,Câncer cervical,AUC,WOA,53.91,49.918
+cervical|auc|FPA,cervical,Câncer cervical,AUC,FPA,55.99,51.18
+glioma|auc|MST,glioma,Glioma,AUC,MST,88.19,87.517
+glioma|auc|GA,glioma,Glioma,AUC,GA,87.16,87.517
+glioma|auc|GWO,glioma,Glioma,AUC,GWO,86.77,87.557
+glioma|auc|PSO,glioma,Glioma,AUC,PSO,86.62,87.517
+glioma|auc|WOA,glioma,Glioma,AUC,WOA,87.05,87.659
+glioma|auc|FPA,glioma,Glioma,AUC,FPA,87.16,87.659
+mesothelioma|auc|MST,mesothelioma,Mesotelioma,AUC,MST,58.69,54.759
+mesothelioma|auc|GA,mesothelioma,Mesotelioma,AUC,GA,58.25,55.678
+mesothelioma|auc|GWO,mesothelioma,Mesotelioma,AUC,GWO,58.25,52.622
+mesothelioma|auc|PSO,mesothelioma,Mesotelioma,AUC,PSO,58.25,56.229
+mesothelioma|auc|WOA,mesothelioma,Mesotelioma,AUC,WOA,57.81,54.678
+mesothelioma|auc|FPA,mesothelioma,Mesotelioma,AUC,FPA,58.25,53.077

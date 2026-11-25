@@ -1,0 +1,145 @@
+base,nome,metrica,fonte,media,dp
+parkinson,Parkinson,ACC,Artigo,81.55,2.5
+qadc,QADC,ACC,Artigo,78.76,2.44
+spectf,SPECTF,ACC,Artigo,79.02,2.01
+wdbc,WDBC,ACC,Artigo,95.96,0.84
+wpbc,WPBC,ACC,Artigo,77.76,3.59
+alzheimer,Alzheimer,ACC,Artigo,79.01,3.4
+cervical,Câncer cervical,ACC,Artigo,91.62,0.77
+glioma,Glioma,ACC,Artigo,88.3,0.52
+mesothelioma,Mesotelioma,ACC,Artigo,74.07,1.58
+parkinson,Parkinson,ACC,"Grupo, n = variáveis",89.263,3.705
+qadc,QADC,ACC,"Grupo, n = variáveis",76.163,5.491
+spectf,SPECTF,ACC,"Grupo, n = variáveis",75.493,6.767
+wdbc,WDBC,ACC,"Grupo, n = variáveis",96.093,3.159
+wpbc,WPBC,ACC,"Grupo, n = variáveis",70.226,9.513
+alzheimer,Alzheimer,ACC,"Grupo, n = variáveis",82.162,3.822
+cervical,Câncer cervical,ACC,"Grupo, n = variáveis",89.815,1.239
+glioma,Glioma,ACC,"Grupo, n = variáveis",86.751,3.886
+mesothelioma,Mesotelioma,ACC,"Grupo, n = variáveis",69.286,5.692
+parkinson,Parkinson,ACC,"Grupo, n = casos",91.042,6.987
+qadc,QADC,ACC,"Grupo, n = casos",75.901,4.642
+spectf,SPECTF,ACC,"Grupo, n = casos",75.934,4.658
+wdbc,WDBC,ACC,"Grupo, n = casos",95.566,3.312
+wpbc,WPBC,ACC,"Grupo, n = casos",73.079,12.042
+alzheimer,Alzheimer,ACC,"Grupo, n = casos",82.226,3.732
+cervical,Câncer cervical,ACC,"Grupo, n = casos",89.757,1.024
+glioma,Glioma,ACC,"Grupo, n = casos",86.751,3.886
+mesothelioma,Mesotelioma,ACC,"Grupo, n = casos",70.72,4.984
+parkinson,Parkinson,ACC,"Grupo, prioris iguais",83.079,6.862
+qadc,QADC,ACC,"Grupo, prioris iguais",74.138,9.519
+spectf,SPECTF,ACC,"Grupo, prioris iguais",64.459,13.241
+wdbc,WDBC,ACC,"Grupo, prioris iguais",96.137,3.285
+wpbc,WPBC,ACC,"Grupo, prioris iguais",64.684,12.785
+alzheimer,Alzheimer,ACC,"Grupo, prioris iguais",80.173,3.807
+cervical,Câncer cervical,ACC,"Grupo, prioris iguais",90.118,1.283
+glioma,Glioma,ACC,"Grupo, prioris iguais",86.87,3.869
+mesothelioma,Mesotelioma,ACC,"Grupo, prioris iguais",62.311,8.014
+parkinson,Parkinson,AUC,Artigo,80.85,1.56
+qadc,QADC,AUC,Artigo,64.15,3.5
+spectf,SPECTF,AUC,Artigo,86.72,1.31
+wdbc,WDBC,AUC,Artigo,94.86,0.66
+wpbc,WPBC,AUC,Artigo,77.31,3.59
+alzheimer,Alzheimer,AUC,Artigo,76.85,3.67
+cervical,Câncer cervical,AUC,Artigo,57.07,0.7
+glioma,Glioma,AUC,Artigo,88.19,1.47
+mesothelioma,Mesotelioma,AUC,Artigo,58.69,0.88
+parkinson,Parkinson,AUC,"Grupo, n = variáveis",82.595,8.618
+qadc,QADC,AUC,"Grupo, n = variáveis",61.73,7.039
+spectf,SPECTF,AUC,"Grupo, n = variáveis",52.528,9.465
+wdbc,WDBC,AUC,"Grupo, n = variáveis",95.098,4.148
+wpbc,WPBC,AUC,"Grupo, n = variáveis",53.846,11.496
+alzheimer,Alzheimer,AUC,"Grupo, n = variáveis",80.025,4.029
+cervical,Câncer cervical,AUC,"Grupo, n = variáveis",50.967,3.217
+glioma,Glioma,AUC,"Grupo, n = variáveis",87.517,3.651
+mesothelioma,Mesotelioma,AUC,"Grupo, n = variáveis",54.759,6.196
+parkinson,Parkinson,AUC,"Grupo, n = casos",85.086,11.966
+qadc,QADC,AUC,"Grupo, n = casos",62.095,9.098
+spectf,SPECTF,AUC,"Grupo, n = casos",52.39,7.548
+wdbc,WDBC,AUC,"Grupo, n = casos",94.386,4.275
+wpbc,WPBC,AUC,"Grupo, n = casos",56.617,13.464
+alzheimer,Alzheimer,AUC,"Grupo, n = casos",80.07,3.946
+cervical,Câncer cervical,AUC,"Grupo, n = casos",50.683,2.759
+glioma,Glioma,AUC,"Grupo, n = casos",87.517,3.651
+mesothelioma,Mesotelioma,AUC,"Grupo, n = casos",56.724,6.81
+parkinson,Parkinson,AUC,"Grupo, prioris iguais",79.19,10.776
+qadc,QADC,AUC,"Grupo, prioris iguais",68.057,13.109
+spectf,SPECTF,AUC,"Grupo, prioris iguais",68.494,16.305
+wdbc,WDBC,AUC,"Grupo, prioris iguais",95.168,4.229
+wpbc,WPBC,AUC,"Grupo, prioris iguais",57.646,12.894
+alzheimer,Alzheimer,AUC,"Grupo, prioris iguais",78.678,3.892
+cervical,Câncer cervical,AUC,"Grupo, prioris iguais",51.885,3.863
+glioma,Glioma,AUC,"Grupo, prioris iguais",87.7,3.668
+mesothelioma,Mesotelioma,AUC,"Grupo, prioris iguais",57.034,8.401
+parkinson,Parkinson,Gmean,Artigo,80.81,1.54
+qadc,QADC,Gmean,Artigo,56.72,5.98
+spectf,SPECTF,Gmean,Artigo,85.69,1.52
+wdbc,WDBC,Gmean,Artigo,94.76,0.63
+wpbc,WPBC,Gmean,Artigo,77.2,3.75
+alzheimer,Alzheimer,Gmean,Artigo,75.94,3.93
+cervical,Câncer cervical,Gmean,Artigo,39.55,1.44
+glioma,Glioma,Gmean,Artigo,88.03,1.49
+mesothelioma,Mesotelioma,Gmean,Artigo,44.87,1.13
+parkinson,Parkinson,Gmean,"Grupo, n = variáveis",80.425,12.106
+qadc,QADC,Gmean,"Grupo, n = variáveis",53.297,11.186
+spectf,SPECTF,Gmean,"Grupo, n = variáveis",23.205,25.124
+wdbc,WDBC,Gmean,"Grupo, n = variáveis",94.891,4.466
+wpbc,WPBC,Gmean,"Grupo, n = variáveis",34.316,26.796
+alzheimer,Alzheimer,Gmean,"Grupo, n = variáveis",79.125,4.343
+cervical,Câncer cervical,Gmean,"Grupo, n = variáveis",7.797,16.453
+glioma,Glioma,Gmean,"Grupo, n = variáveis",87.242,3.801
+mesothelioma,Mesotelioma,Gmean,"Grupo, n = variáveis",39.4,12.654
+parkinson,Parkinson,Gmean,"Grupo, n = casos",83.035,15.075
+qadc,QADC,Gmean,"Grupo, n = casos",53.655,13.587
+spectf,SPECTF,Gmean,"Grupo, n = casos",22.637,23.085
+wdbc,WDBC,Gmean,"Grupo, n = casos",94.139,4.592
+wpbc,WPBC,Gmean,"Grupo, n = casos",38.36,27.101
+alzheimer,Alzheimer,Gmean,"Grupo, n = casos",79.15,4.271
+cervical,Câncer cervical,Gmean,"Grupo, n = casos",6.298,13.938
+glioma,Glioma,Gmean,"Grupo, n = casos",87.242,3.801
+mesothelioma,Mesotelioma,Gmean,"Grupo, n = casos",42.99,13.37
+parkinson,Parkinson,Gmean,"Grupo, prioris iguais",77.599,13.043
+qadc,QADC,Gmean,"Grupo, prioris iguais",65.704,16.14
+spectf,SPECTF,Gmean,"Grupo, prioris iguais",66.324,17.448
+wdbc,WDBC,Gmean,"Grupo, prioris iguais",94.968,4.545
+wpbc,WPBC,Gmean,"Grupo, prioris iguais",55.386,13.688
+alzheimer,Alzheimer,Gmean,"Grupo, prioris iguais",78.174,4.073
+cervical,Câncer cervical,Gmean,"Grupo, prioris iguais",11.879,19.147
+glioma,Glioma,Gmean,"Grupo, prioris iguais",87.402,3.804
+mesothelioma,Mesotelioma,Gmean,"Grupo, prioris iguais",51.383,13.89
+parkinson,Parkinson,F1,Artigo,86.92,2.09
+qadc,QADC,F1,Artigo,86.82,1.62
+spectf,SPECTF,F1,Artigo,84.66,1.73
+wdbc,WDBC,F1,Artigo,96.85,0.69
+wpbc,WPBC,F1,Artigo,61.98,5.56
+alzheimer,Alzheimer,F1,Artigo,71.62,4.9
+cervical,Câncer cervical,F1,Artigo,23.97,2.13
+glioma,Glioma,F1,Artigo,86.14,1.55
+mesothelioma,Mesotelioma,F1,Artigo,32.31,1.32
+parkinson,Parkinson,F1,"Grupo, n = variáveis",93.021,2.388
+qadc,QADC,F1,"Grupo, n = variáveis",85.025,3.678
+spectf,SPECTF,F1,"Grupo, n = variáveis",85.529,4.228
+wdbc,WDBC,F1,"Grupo, n = variáveis",94.408,4.754
+wpbc,WPBC,F1,"Grupo, n = variáveis",23.937,22.18
+alzheimer,Alzheimer,F1,"Grupo, n = variáveis",75.722,5.456
+cervical,Câncer cervical,F1,"Grupo, n = variáveis",4.722,9.977
+glioma,Glioma,F1,"Grupo, n = variáveis",85.471,3.959
+mesothelioma,Mesotelioma,F1,"Grupo, n = variáveis",26.178,13.266
+parkinson,Parkinson,F1,"Grupo, n = casos",94.187,4.651
+qadc,QADC,F1,"Grupo, n = casos",84.815,2.881
+spectf,SPECTF,F1,"Grupo, n = casos",85.898,2.784
+wdbc,WDBC,F1,"Grupo, n = casos",93.626,4.919
+wpbc,WPBC,F1,"Grupo, n = casos",29.532,25.809
+alzheimer,Alzheimer,F1,"Grupo, n = casos",75.768,5.358
+cervical,Câncer cervical,F1,"Grupo, n = casos",3.833,8.536
+glioma,Glioma,F1,"Grupo, n = casos",85.471,3.959
+mesothelioma,Mesotelioma,F1,"Grupo, n = casos",29.565,15.24
+parkinson,Parkinson,F1,"Grupo, prioris iguais",88.436,4.588
+qadc,QADC,F1,"Grupo, prioris iguais",82.286,6.472
+spectf,SPECTF,F1,"Grupo, prioris iguais",72.441,12.154
+wdbc,WDBC,F1,"Grupo, prioris iguais",94.49,4.866
+wpbc,WPBC,F1,"Grupo, prioris iguais",38.512,15.41
+alzheimer,Alzheimer,F1,"Grupo, prioris iguais",74.336,5.066
+cervical,Câncer cervical,F1,"Grupo, prioris iguais",7.579,12.296
+glioma,Glioma,F1,"Grupo, prioris iguais",85.653,3.96
+mesothelioma,Mesotelioma,F1,"Grupo, prioris iguais",38.073,15.475

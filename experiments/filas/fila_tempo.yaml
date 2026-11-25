@@ -1,0 +1,12 @@
+# Fila de tempo (25/11): MST e MST_FREQ do E2-P1 juntos, na mesma máquina e com a
+# mesma carga, para os tempos serem comparáveis (D12). 16 processos = núcleos físicos.
+n_jobs: 16
+blas_threads: 1
+custo_base: {qadc: 1000, spectf: 100, wpbc: 20, wdbc: 20, mesothelioma: 20, alzheimer: 12, cervical: 8, parkinson: 7, glioma: 3}
+entradas:
+  - config: experiments/configs/E2_P1.yaml
+    set: ["campanha=E2-P1-tempo", "variantes=[MST]"]
+    prioridade: 0
+  - config: experiments/configs/E2_P1_freq.yaml
+    set: ["campanha=E2-P1-tempo"]
+    prioridade: 0

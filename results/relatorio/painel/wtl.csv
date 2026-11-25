@@ -1,0 +1,26 @@
+chave,medida,metodo,artigo,grupo
+f_treino|GA,f (treino),GA,9/0/0,1/8/0
+f_treino|GWO,f (treino),GWO,9/0/0,9/0/0
+f_treino|PSO,f (treino),PSO,9/0/0,2/7/0
+f_treino|WOA,f (treino),WOA,9/0/0,9/0/0
+f_treino|FPA,f (treino),FPA,9/0/0,9/0/0
+acc|GA,ACC,GA,7/2/0,0/9/0
+acc|GWO,ACC,GWO,4/5/0,0/9/0
+acc|PSO,ACC,PSO,7/2/0,0/9/0
+acc|WOA,ACC,WOA,9/0/0,1/8/0
+acc|FPA,ACC,FPA,8/1/0,0/9/0
+auc|GA,AUC,GA,7/2/0,0/9/0
+auc|GWO,AUC,GWO,4/5/0,0/9/0
+auc|PSO,AUC,PSO,8/1/0,0/9/0
+auc|WOA,AUC,WOA,8/1/0,0/9/0
+auc|FPA,AUC,FPA,8/1/0,0/9/0
+gmean|GA,Gmean,GA,6/3/0,0/9/0
+gmean|GWO,Gmean,GWO,3/6/0,0/9/0
+gmean|PSO,Gmean,PSO,7/2/0,0/9/0
+gmean|WOA,Gmean,WOA,7/2/0,0/9/0
+gmean|FPA,Gmean,FPA,7/2/0,0/9/0
+f1|GA,F1,GA,7/2/0,0/9/0
+f1|GWO,F1,GWO,3/6/0,0/9/0
+f1|PSO,F1,PSO,7/2/0,0/9/0
+f1|WOA,F1,WOA,9/0/0,1/8/0
+f1|FPA,F1,FPA,8/1/0,0/9/0

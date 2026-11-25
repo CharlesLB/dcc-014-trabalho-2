@@ -1,0 +1,28 @@
+base,nome,fonte,media,dp
+parkinson,Parkinson,MST,93.084,0.482
+qadc,QADC,MST,89.612,0.728
+spectf,SPECTF,MST,88.592,1.021
+wdbc,WDBC,MST,97.986,0.229
+wpbc,WPBC,MST,85.361,0.639
+alzheimer,Alzheimer,MST,83.026,0.453
+cervical,Câncer cervical,MST,91.266,0.193
+glioma,Glioma,MST,87.112,0.393
+mesothelioma,Mesotelioma,MST,79.656,0.959
+parkinson,Parkinson,Sem lista tabu,89.526,1.848
+qadc,QADC,Sem lista tabu,84.284,1.555
+spectf,SPECTF,Sem lista tabu,84.006,1.49
+wdbc,WDBC,Sem lista tabu,97.531,0.18
+wpbc,WPBC,Sem lista tabu,80.25,1.585
+alzheimer,Alzheimer,Sem lista tabu,82.243,0.967
+cervical,Câncer cervical,Sem lista tabu,90.859,0.106
+glioma,Glioma,Sem lista tabu,86.918,0.425
+mesothelioma,Mesotelioma,Sem lista tabu,75.017,2.0
+parkinson,Parkinson,Sem reinícios,93.049,0.513
+qadc,QADC,Sem reinícios,89.221,0.603
+spectf,SPECTF,Sem reinícios,88.197,0.912
+wdbc,WDBC,Sem reinícios,97.844,0.223
+wpbc,WPBC,Sem reinícios,85.022,0.927
+alzheimer,Alzheimer,Sem reinícios,83.018,0.451
+cervical,Câncer cervical,Sem reinícios,91.262,0.189
+glioma,Glioma,Sem reinícios,87.112,0.393
+mesothelioma,Mesotelioma,Sem reinícios,79.461,0.9

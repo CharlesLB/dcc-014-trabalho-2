@@ -238,3 +238,14 @@ O MST_FREQ do E2-P2 entra na fila quando o E2a terminar.
   spec, e o SVM rodou também na SPECTF. A redução para 3 sementes (D9) não foi
   necessária no fim.
 - Ficaram de fora só a QADC com LR e SVM e as baselines com LR e SVM (D9).
+
+## D12. Tempos comparáveis entre MST e MST_FREQ (25/11 08:00)
+
+- O MST do E2-P1 veio da máquina Windows/Zen 2 (7 processos) e o MST_FREQ desta
+  máquina (Linux/Zen 4, 31 processos), então seus tempos não se comparavam.
+- Campanha `E2-P1-tempo` (`experiments/filas/fila_tempo.yaml`): MST e MST_FREQ do
+  E2-P1 rodados de novo, juntos, nesta máquina, com 16 processos (um por núcleo
+  físico, sem disputa de hyper-threading), 9 bases × 10 folds × 5 sementes.
+- Os resultados (S*, f, n_evals) têm de ser idênticos aos do E2-P1; só o tempo é
+  novo. Todos os tempos de MST × MST_FREQ (Tabela 4, comparação de tempo e report)
+  passam a vir dessa campanha.

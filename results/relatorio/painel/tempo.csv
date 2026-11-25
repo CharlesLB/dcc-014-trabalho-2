@@ -1,0 +1,10 @@
+base,nome,fonte,media,dp
+parkinson,Parkinson,"Artigo (Pascal, i9-10920X)",0.529,0.033
+qadc,QADC,"Artigo (Pascal, i9-10920X)",71.748,6.488
+spectf,SPECTF,"Artigo (Pascal, i9-10920X)",9.091,0.62
+wdbc,WDBC,"Artigo (Pascal, i9-10920X)",1.187,0.02
+wpbc,WPBC,"Artigo (Pascal, i9-10920X)",1.019,0.045
+alzheimer,Alzheimer,"Artigo (Pascal, i9-10920X)",1.63,0.089
+cervical,Câncer cervical,"Artigo (Pascal, i9-10920X)",1.386,0.021
+glioma,Glioma,"Artigo (Pascal, i9-10920X)",1.463,0.062
+mesothelioma,Mesotelioma,"Artigo (Pascal, i9-10920X)",3.125,0.099

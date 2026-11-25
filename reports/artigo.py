@@ -146,3 +146,13 @@ mesothelioma: 72.52±3.75 71.29±2.14 70.98±2.13 70.68±1.50 70.37±2.57 70.68�
 
 METRICAS_DA = {"f_treino": F_DA, "acc": ACC_DA, "auc": AUC_DA, "gmean": GMEAN_DA, "f1": F1_DA}
 ACC = {"DA": ACC_DA, "LR": ACC_LR, "SVM": ACC_SVM}
+
+# Tabela 8: vitórias/empates/derrotas do MST contra cada baseline (DA, t pareado a 5%),
+# na ordem GA, GWO, PSO, WOA, FPA.
+TABELA8 = {
+    "f_treino": dict(zip(METODOS[1:], ["9/0/0"] * 5)),
+    "acc": dict(zip(METODOS[1:], ["7/2/0", "4/5/0", "7/2/0", "9/0/0", "8/1/0"])),
+    "auc": dict(zip(METODOS[1:], ["7/2/0", "4/5/0", "8/1/0", "8/1/0", "8/1/0"])),
+    "gmean": dict(zip(METODOS[1:], ["6/3/0", "3/6/0", "7/2/0", "7/2/0", "7/2/0"])),
+    "f1": dict(zip(METODOS[1:], ["7/2/0", "3/6/0", "7/2/0", "9/0/0", "8/1/0"])),
+}

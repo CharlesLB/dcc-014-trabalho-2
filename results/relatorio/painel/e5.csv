@@ -1,0 +1,5 @@
+chave,nome,variante,maximos,fugas,pct,f
+parkinson|GULOSO,Parkinson,GULOSO,10,0,0.0,88.57
+parkinson|MST,Parkinson,MST,2064,570,27.6,93.08
+wpbc|GULOSO,WPBC,GULOSO,10,0,0.0,78.38
+wpbc|MST,WPBC,MST,4236,1732,40.9,85.37

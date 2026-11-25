@@ -1,0 +1,280 @@
+<meta name="dash-one-writer">
+<meta name="dash-form" content="freeform">
+<style>
+  .rp { max-width: 1040px; margin: 0 auto; font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+  .rp h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0 0 var(--cds-gap-sm); }
+  .rp h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: var(--cds-gap-xl) 0 var(--cds-gap-xs); }
+  .rp p, .rp li { line-height: 1.55; max-width: 74ch; }
+  .rp .lede { font-size: var(--cds-font-size-body); color: var(--color-fg-muted); }
+  .rp .card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); margin: var(--cds-gap-md) 0; }
+  .rp .find { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--cds-gap-md); }
+  .rp .find h3 { margin: 0 0 var(--cds-gap-xs); font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); }
+  .rp .find p { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .rp .bar { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); align-items: center; margin-bottom: var(--cds-gap-sm); }
+  .rp .legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--cds-text-secondary); }
+  .rp .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .rp .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .rp .chart { position: relative; min-height: 320px; }
+  .rp .chart svg { display: block; overflow: visible; }
+  .rp .chart text { fill: var(--cds-text-secondary); font-size: var(--cds-font-size-caption); }
+  .rp .chart .lbl { fill: var(--color-fg); }
+  .rp .tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); box-shadow: var(--cds-shadow-popover); border-radius: var(--cds-radius); padding: 6px 10px; font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+  .rp .note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .rp .tw { overflow-x: auto; }
+  .rp table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+  .rp th, .rp td { padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); text-align: right; }
+  .rp th:first-child, .rp td:first-child { text-align: left; }
+  .rp th { font-weight: var(--cds-font-weight-medium); color: var(--cds-text-secondary); }
+  .rp .err { color: var(--color-bad); }
+  .rp details { margin-top: var(--cds-gap-xl); }
+</style>
+
+<div class="rp">
+  <h1 id="titulo">MultiStartTabu: reprodução de Pacheco et al. (2023) e extensão MST_FREQ</h1>
+  <p class="lede" id="lede">Grupo 5, Inteligência Artificial. O MST do grupo chega a uma função objetivo maior que a do artigo em 7 das 9 bases, mas a vantagem não aparece na validação; a extensão com memória de frequência empata com o MST, e quase todo o ganho do MST vem da lista tabu.</p>
+
+  <div class="find" id="achados">
+    <div class="card"><h3>1. A extensão é neutra</h3><p>Com o mesmo orçamento de avaliações, MST_FREQ e MST não diferem em nenhuma base nem medida (Wilcoxon pareado com Holm). A diversidade entre reinícios sobe pouco.</p></div>
+    <div class="card"><h3>2. A lista tabu é o que funciona</h3><p>Sem lista tabu a busca entra em ciclo e perde muita qualidade; sem reinícios, perde pouco. O MST sai de cerca de um terço dos máximos locais por onde passa.</p></div>
+    <div class="card"><h3>3. f acima do artigo, validação não</h3><p>Nas bases desbalanceadas, o DA com prioris favorece a classe majoritária: sobe a acurácia de treino, caem AUC e Gmean. Com prioris iguais, a distância ao artigo encolhe.</p></div>
+  </div>
+
+  <h2 id="s-f">Função objetivo do MST com DA (Tabela 3 do artigo)</h2>
+  <p>Média ± desvio-padrão entre os 10 folds; com 5 sementes, cada fold entra com a média das sementes. Três versões do grupo: a usada no trabalho (n = variáveis em tenure e maxiterTS), a leitura literal do artigo (n = casos) e o DA com prioris iguais, a regra do código Pascal dos autores.</p>
+  <div class="card">
+    <div class="legend" data-legend="f"><span><i class="sw" data-i="0"></i>Artigo</span><span><i class="sw" data-i="1"></i>Grupo, n = variáveis</span><span><i class="sw" data-i="2"></i>Grupo, n = casos</span><span><i class="sw" data-i="3"></i>Grupo, prioris iguais</span></div>
+    <div class="chart dash-skeleton" id="ch-f" data-draw="f_mst" data-source="f_mst"></div>
+    <p class="note">A leitura de n muda pouco (menos de 0,7 p.p.). As prioris iguais aproximam o grupo do artigo em SPECTF, WPBC e Mesotelioma. Glioma é a única base em que o grupo fica abaixo do artigo em todas as versões.</p>
+  </div>
+
+  <h2 id="s-met">Métricas na validação (Tabelas 4 a 7)</h2>
+  <div class="card">
+    <div class="bar">
+      <select class="dash-select" id="sel-met" aria-label="Métrica">
+        <option value="ACC">ACC</option><option value="AUC">AUC</option><option value="Gmean">Gmean</option><option value="F1">F1</option>
+      </select>
+      <div class="legend"><span><i class="sw" data-i="0"></i>Artigo</span><span><i class="sw" data-i="1"></i>Grupo, n = variáveis</span><span><i class="sw" data-i="2"></i>Grupo, n = casos</span><span><i class="sw" data-i="3"></i>Grupo, prioris iguais</span></div>
+    </div>
+    <div class="chart dash-skeleton" id="ch-met" data-draw="metricas" data-source="metricas"></div>
+    <p class="note">WDBC, Alzheimer e Glioma ficam perto do artigo. Em SPECTF, WPBC, Câncer cervical e Mesotelioma, AUC fica perto de 50% e o Gmean desaba: a solução quase nunca acerta a classe minoritária. Os desvios-padrão do artigo nestas métricas são muito menores que os nossos, difíceis de explicar com folds de 20 a 30 casos.</p>
+  </div>
+
+  <h2 id="s-tempo">Tempo por fold (Tabela 2)</h2>
+  <div class="card">
+    <div class="legend"><span><i class="sw" data-i="0"></i>Artigo (Pascal, i9-10920X)</span><span><i class="sw" data-i="1"></i>Grupo MST (Python, Ryzen 9 7950X)</span><span><i class="sw" data-i="2"></i>Grupo MST_FREQ (Python, Ryzen 9 7950X)</span></div>
+    <div class="chart dash-skeleton" id="ch-tempo" data-draw="tempo" data-source="tempo"></div>
+    <p class="note">Escala logarítmica, em segundos. MST e MST_FREQ do grupo rodaram juntos, na mesma máquina, com a mesma carga (16 processos, um por núcleo físico), então os dois se comparam diretamente. Contra o artigo, a comparação é só de ordem de grandeza: outra linguagem e outra máquina.</p>
+  </div>
+
+  <h2 id="s-bl">MST contra GA, GWO, PSO, WOA e FPA (Tabelas 3 a 8)</h2>
+  <p>Diferença entre o MST e a melhor das cinco baselines em cada base. Acima de zero, o MST é melhor que todas. Baselines com o mesmo tempo do MST, 1 semente por fold, como no artigo.</p>
+  <div class="card">
+    <div class="bar">
+      <select class="dash-select" id="sel-bl" aria-label="Medida">
+        <option value="f (treino)">f (treino)</option><option value="ACC">ACC</option><option value="AUC">AUC</option>
+      </select>
+      <div class="legend"><span><i class="sw" data-i="0"></i>Artigo</span><span><i class="sw" data-i="1"></i>Grupo, n = variáveis</span></div>
+    </div>
+    <div class="chart dash-skeleton" id="ch-bl" data-draw="bl" data-source="baselines_dif"></div>
+  </div>
+  <div class="card tw" id="tab-wtl">
+    <p class="note">Vitórias / empates / derrotas do MST nas 9 bases (t pareado bicaudal a 5% nos 10 folds, como na Tabela 8).</p>
+    <table data-source="wtl" data-row-key="chave">
+      <thead><tr><th data-field="medida">Medida</th><th data-field="metodo">Baseline</th><th data-field="artigo">Artigo</th><th data-field="grupo">Grupo</th></tr></thead>
+      <tbody data-draw="t_wtl"></tbody>
+    </table>
+  </div>
+
+  <h2 id="s-lr">MST com LR e SVM (Tabelas 9 e 11)</h2>
+  <div class="card">
+    <div class="bar">
+      <select class="dash-select" id="sel-clf" aria-label="Classificador">
+        <option value="LR">Regressão logística</option><option value="SVM">SVM</option>
+      </select>
+      <div class="legend"><span><i class="sw" data-i="0"></i>Artigo</span><span><i class="sw" data-i="1"></i>Grupo, n = variáveis</span></div>
+    </div>
+    <div class="chart dash-skeleton" id="ch-lr" data-draw="lrsvm" data-source="lr_svm"></div>
+    <p class="note">ACC na validação, 1 semente. A QADC não rodou com LR nem SVM: cada fold levaria horas em Python. Em SPECTF e WPBC a acurácia do grupo é quase a proporção da classe majoritária.</p>
+  </div>
+
+  <h2 id="s-e2">Extensão MST_FREQ contra o MST, com o mesmo orçamento (seção 6.3)</h2>
+  <p>Protocolo P2: o mesmo número de avaliações para as duas variantes, 10 folds × 5 sementes por base, λ = 0,05 e gatilho = 5. p corrigido por Holm. Diversidade: distância de Jaccard média entre as soluções dos reinícios.</p>
+  <div class="card tw" id="tab-e2">
+    <table data-source="e2" data-row-key="base">
+      <thead><tr>
+        <th data-field="nome">Base</th><th data-field="f_mst">f MST</th><th data-field="f_freq">f MST_FREQ</th><th data-field="dif_f">dif. f (p.p.)</th><th data-field="p_holm_f">p Holm (f)</th>
+        <th data-field="acc_mst">ACC MST</th><th data-field="acc_freq">ACC MST_FREQ</th><th data-field="dif_div">dif. diversidade</th><th data-field="p_holm_div">p Holm (div.)</th><th data-field="iguais">mesmo S*</th>
+      </tr></thead>
+      <tbody data-draw="t_e2"></tbody>
+    </table>
+    <p class="note">"mesmo S*": em quantas das 50 execuções as duas variantes chegam exatamente ao mesmo subconjunto. Pela regra do relatório, f não cai e a diversidade sobe pouco: a extensão explora um pouco mais, sem ganho nem perda de qualidade.</p>
+  </div>
+
+  <h2 id="s-e3">De onde vem a melhora: lista tabu ou reinícios (ablações)</h2>
+  <div class="card">
+    <div class="legend"><span><i class="sw" data-i="0"></i>MST</span><span><i class="sw" data-i="1"></i>Sem lista tabu</span><span><i class="sw" data-i="2"></i>Sem reinícios</span></div>
+    <div class="chart dash-skeleton" id="ch-e3" data-draw="e3" data-source="e3"></div>
+    <p class="note">f no treino, protocolo P2, 5 sementes. Sem lista tabu, todas as execuções param por falta de avaliações novas: a busca fica andando em ciclo. Uma única construção seguida de uma busca tabu já chega quase ao MST completo.</p>
+  </div>
+
+  <h2 id="s-e5">Fuga de máximo local em dados reais (seção 7)</h2>
+  <div class="card tw" id="tab-e5">
+    <table data-source="e5" data-row-key="chave">
+      <thead><tr><th data-field="nome">Base</th><th data-field="variante">Variante</th><th data-field="maximos">Máximos locais</th><th data-field="fugas">Fugas confirmadas</th><th data-field="pct">% de fuga</th><th data-field="f">f médio (%)</th></tr></thead>
+      <tbody data-draw="t_e5"></tbody>
+    </table>
+    <p class="note">10 folds, semente 0. Uma fuga confirmada: a busca sai do máximo local aceitando um vizinho pior e depois supera esse máximo no mesmo reinício. O guloso para no primeiro máximo local.</p>
+  </div>
+
+  <h2 id="s-e2a">Ajuste de λ e gatilho (E2a)</h2>
+  <div class="card tw" id="tab-e2a">
+    <table data-source="e2a" data-row-key="chave">
+      <thead><tr><th data-field="lam">λ</th><th data-field="trigger">Gatilho</th><th data-field="f_medio">f médio (%)</th><th data-field="diversidade">Diversidade</th></tr></thead>
+      <tbody data-draw="t_e2a"></tbody>
+    </table>
+    <p class="note">Parkinson, WPBC e QADC, 10 folds × 2 sementes, protocolo P2, ordenado pelo critério (maior f, desempate pela diversidade). A grade é quase plana: λ = 0 é o próprio MST.</p>
+  </div>
+
+  <details id="notas">
+    <summary>Como os números foram obtidos e o que limita a comparação</summary>
+    <ul>
+      <li>n = variáveis em tenure = n/2 e maxiterTS = 10n é um desvio declarado: o texto do artigo diz casos. Com casos, 50% a 96% das iterações ficam sem movimento admissível, porque o tenure passa do número de variáveis.</li>
+      <li>O artigo normaliza a base antes de dividir em folds; aqui a normalização é feita dentro de cada fold. Para o DA não muda nada, porque a LDA é invariante à escala.</li>
+      <li>Parkinson, QADC e SPECTF divergem da Tabela 1 do artigo em 1 ou 2 rótulos; a QADC tem 65 variáveis em vez de 67.</li>
+      <li>As baselines são reimplementações binárias do grupo, não o código dos autores.</li>
+      <li>Decisões completas em results/DECISOES.md; texto para o relatório em results/RESULTADOS.md.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+  window.RP = (() => {
+    const loc = d3.formatLocale({decimal: ',', thousands: '.', grouping: [3], currency: ['', '']});
+    const fmt = (v, d = 2) => (v == null || v === '' || isNaN(+v)) ? '—' : loc.format(`,.${d}f`)(+v);
+    const num = (v) => (v == null || v === '') ? null : +v;
+
+    function status(el, src) {
+      const g = dash.data(src);
+      if (g.status === 'ok') { el.classList.remove('dash-skeleton'); return g; }
+      if (g.status === 'loading') return null;
+      el.classList.remove('dash-skeleton');
+      const p = document.createElement('p');
+      p.className = g.status === 'error' ? 'err' : 'note';
+      p.textContent = g.status === 'error' ? 'Não foi possível carregar estes dados.' : '—';
+      el.replaceChildren(p);
+      return null;
+    }
+
+    // Dot plot horizontal: uma faixa por base, uma linha por série, barra = ± dp.
+    function dotplot(el, rows, series, {log = false, unit = '%', zero = false, label = ''} = {}) {
+      el.replaceChildren();
+      const bases = [...new Set(rows.map((r) => r.nome))];
+      const W = Math.max(280, el.clientWidth);
+      const rowH = 11, pad = 10, bandH = series.length * rowH + pad * 2;
+      const svg = d3.select(el).append('svg').attr('role', 'img').attr('aria-label', label);
+      const tmp = svg.append('g');
+      const widest = d3.max(bases, (b) => tmp.append('text').attr('class', 'lbl').text(b).node().getComputedTextLength()) || 90;
+      tmp.remove();
+      const m = {l: widest + 14, r: 18, t: 4, b: 28};
+      const H = m.t + m.b + bases.length * bandH;
+      svg.attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`);
+      const lo = d3.min(rows, (r) => num(r.media) - (num(r.dp) || 0));
+      const hi = d3.max(rows, (r) => num(r.media) + (num(r.dp) || 0));
+      let x;
+      if (log) x = d3.scaleLog().domain([Math.max(0.1, d3.min(rows, (r) => num(r.media)) * 0.6), hi * 1.2]).range([m.l, W - m.r]);
+      else {
+        const span = (hi - lo) || 1;
+        let a = lo - span * 0.05, b = hi + span * 0.05;
+        if (zero) { a = Math.min(a, 0); b = Math.max(b, 0); }
+        x = d3.scaleLinear().domain([a, b]).nice().range([m.l, W - m.r]);
+      }
+      const nt = Math.max(2, Math.floor((W - m.l - m.r) / 90));
+      const ax = svg.append('g').attr('transform', `translate(0,${H - m.b})`)
+        .call(log ? d3.axisBottom(x).ticks(nt, (d) => loc.format(',~g')(d)) : d3.axisBottom(x).ticks(nt).tickFormat((d) => loc.format(',~g')(d)));
+      ax.select('.domain').style('stroke', 'var(--cds-chart-axis)');
+      ax.selectAll('line').style('stroke', 'var(--cds-chart-axis)');
+      svg.append('g').selectAll('line').data(x.ticks(nt)).join('line')
+        .attr('x1', (d) => x(d)).attr('x2', (d) => x(d)).attr('y1', m.t).attr('y2', H - m.b)
+        .style('stroke', 'var(--cds-chart-grid)');
+      if (zero && !log) svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', m.t).attr('y2', H - m.b)
+        .style('stroke', 'var(--cds-chart-reference)').style('stroke-width', 1.5);
+      const tip = d3.select(el).append('div').attr('class', 'tip').style('display', 'none');
+      bases.forEach((b, i) => {
+        const y0 = m.t + i * bandH;
+        svg.append('text').attr('class', 'lbl').attr('x', m.l - 10).attr('y', y0 + bandH / 2).attr('dy', '0.35em').attr('text-anchor', 'end').text(b);
+        if (i > 0) svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y0).attr('y2', y0).style('stroke', 'var(--cds-chart-grid)');
+        series.forEach((s, j) => {
+          const r = rows.find((q) => q.nome === b && q.fonte === s);
+          if (!r || r.media == null || r.media === '') return;
+          const y = y0 + pad + j * rowH + rowH / 2, v = num(r.media), dp = num(r.dp) || 0;
+          const g = svg.append('g');
+          if (dp > 0) g.append('line').attr('x1', x(log ? Math.max(x.domain()[0], v - dp) : v - dp)).attr('x2', x(v + dp)).attr('y1', y).attr('y2', y)
+            .style('stroke', dash.colors[j]).style('stroke-width', 2).style('stroke-linecap', 'round').style('opacity', 0.55);
+          g.append('circle').attr('cx', x(v)).attr('cy', y).attr('r', 4.5).style('fill', dash.colors[j]).style('stroke', 'var(--color-panel)').style('stroke-width', 1.5);
+          g.append('rect').attr('x', m.l).attr('y', y - rowH / 2).attr('width', W - m.l - m.r).attr('height', rowH).style('fill', 'transparent')
+            .on('pointerenter pointermove', (ev) => {
+              const [px, py] = d3.pointer(ev, el);
+              tip.style('display', null).text(`${b} · ${s}: ${fmt(v, log ? 1 : 2)}${dp ? ' ± ' + fmt(dp, log ? 1 : 2) : ''} ${unit}`);
+              const tw = tip.node().offsetWidth;
+              tip.style('left', `${Math.min(Math.max(0, px + 12), el.clientWidth - tw)}px`).style('top', `${py - 34}px`);
+            })
+            .on('pointerleave', () => tip.style('display', 'none'));
+        });
+      });
+    }
+
+    function table(tb, src, cols, key) {
+      const g = dash.data(src);
+      tb.replaceChildren();
+      if (g.status !== 'ok') {
+        if (g.status === 'error') { const tr = tb.insertRow(); const td = tr.insertCell(); td.colSpan = cols.length; td.className = 'err'; td.textContent = 'Não foi possível carregar estes dados.'; }
+        return;
+      }
+      g.data.forEach((r) => {
+        const tr = tb.insertRow();
+        tr.dataset.key = key(r);
+        cols.forEach(([c, f]) => { tr.insertCell().textContent = f ? f(r[c], r) : r[c]; });
+      });
+    }
+    return {fmt, num, status, dotplot, table};
+  })();
+
+  // cores das legendas
+  document.querySelectorAll('.rp .sw').forEach((s) => { s.style.background = dash.colors[+s.dataset.i] || 'var(--cds-chart-muted)'; });
+
+  const F4 = ['Artigo', 'Grupo, n = variáveis', 'Grupo, n = casos', 'Grupo, prioris iguais'];
+  const pick = (id, dflt) => { const e = document.getElementById(id); return e ? e.value : dflt; };
+  document.querySelectorAll('#sel-met').forEach((s) => s.addEventListener('change', () => dash.draw('metricas')));
+  document.querySelectorAll('#sel-bl').forEach((s) => s.addEventListener('change', () => dash.draw('bl')));
+  document.querySelectorAll('#sel-clf').forEach((s) => s.addEventListener('change', () => dash.draw('lrsvm')));
+
+  dash.draw('f_mst', (el) => { const g = RP.status(el, 'f_mst'); if (g) RP.dotplot(el, g.data, F4, {label: 'f no treino do MST com DA por base: artigo e três versões do grupo'}); });
+  dash.draw('metricas', (el) => {
+    const g = RP.status(el, 'metricas'); if (!g) return;
+    const m = pick('sel-met', 'ACC');
+    RP.dotplot(el, g.data.filter((r) => r.metrica === m), F4, {label: `${m} na validação, MST com DA, artigo e grupo`});
+  });
+  dash.draw('tempo', (el) => {
+    const g = RP.status(el, 'tempo'); if (!g) return;
+    const S = [...new Set(g.data.map((r) => r.fonte))];
+    RP.dotplot(el, g.data, S, {log: true, unit: 's', label: 'Tempo por fold do MST, artigo e grupo, escala logarítmica'});
+  });
+  dash.draw('bl', (el) => {
+    const g = RP.status(el, 'baselines_dif'); if (!g) return;
+    const m = pick('sel-bl', 'f (treino)');
+    RP.dotplot(el, g.data.filter((r) => r.medida === m), ['Artigo', 'Grupo, n = variáveis'], {zero: true, unit: 'p.p.', label: `MST menos a melhor baseline em ${m}`});
+  });
+  dash.draw('lrsvm', (el) => {
+    const g = RP.status(el, 'lr_svm'); if (!g) return;
+    const c = pick('sel-clf', 'LR');
+    RP.dotplot(el, g.data.filter((r) => r.clf === c), ['Artigo', 'Grupo, n = variáveis'], {label: `ACC na validação do MST com ${c}`});
+  });
+  dash.draw('e3', (el) => { const g = RP.status(el, 'e3'); if (g) RP.dotplot(el, g.data, ['MST', 'Sem lista tabu', 'Sem reinícios'], {label: 'f no treino do MST e das ablações sem lista tabu e sem reinícios'}); });
+
+  const f2 = (v) => RP.fmt(v, 2), f3 = (v) => RP.fmt(v, 3), f4 = (v) => RP.fmt(v, 4);
+  const sg = (d) => (v) => (+v > 0 ? '+' : '') + RP.fmt(v, d);
+  dash.draw('t_wtl', (tb) => RP.table(tb, 'wtl', [['medida'], ['metodo'], ['artigo'], ['grupo']], (r) => r.chave));
+  dash.draw('t_e2', (tb) => RP.table(tb, 'e2', [['nome'], ['f_mst', f2], ['f_freq', f2], ['dif_f', sg(3)], ['p_holm_f', f2], ['acc_mst', f2], ['acc_freq', f2], ['dif_div', sg(4)], ['p_holm_div', f2], ['iguais', (v, r) => `${v} de ${r.n}`]], (r) => r.base));
+  dash.draw('t_e5', (tb) => RP.table(tb, 'e5', [['nome'], ['variante'], ['maximos', (v) => RP.fmt(v, 0)], ['fugas', (v) => RP.fmt(v, 0)], ['pct', (v) => RP.fmt(v, 1) + '%'], ['f', f2]], (r) => r.chave));
+  dash.draw('t_e2a', (tb) => RP.table(tb, 'e2a', [['lam', (v) => RP.fmt(v, 3)], ['trigger'], ['f_medio', f3], ['diversidade', f4]], (r) => r.chave));
+</script>

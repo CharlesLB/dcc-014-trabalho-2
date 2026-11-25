@@ -358,10 +358,7 @@ def build(resultados: Path, saida: Path) -> str:
                 md.append(f"| {A.NOMES[b]} | " + " | ".join(cel) + " |")
         md.append("\n**Vitórias/empates/derrotas do MST** (t pareado bicaudal, 5%, nos folds; "
                   "artigo → grupo)\n")
-        art_t8 = {"f_treino": ["9/0/0"] * 5, "acc": ["7/2/0", "4/5/0", "7/2/0", "9/0/0", "8/1/0"],
-                  "auc": ["7/2/0", "4/5/0", "8/1/0", "8/1/0", "8/1/0"],
-                  "gmean": ["6/3/0", "3/6/0", "7/2/0", "7/2/0", "7/2/0"],
-                  "f1": ["7/2/0", "3/6/0", "7/2/0", "9/0/0", "8/1/0"]}
+        art_t8 = {k: [v[m] for m in A.METODOS[1:]] for k, v in A.TABELA8.items()}
         md.append("| medida | " + " | ".join(A.METODOS[1:]) + " |")
         md.append("|---" * 6 + "|")
         for met in ("f_treino", *METRICAS):

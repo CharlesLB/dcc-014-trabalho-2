@@ -1,0 +1,35 @@
+base,nome,clf,fonte,media,dp
+parkinson,Parkinson,LR,Artigo,87.16,3.66
+qadc,QADC,LR,Artigo,84.68,2.33
+spectf,SPECTF,LR,Artigo,87.29,3.5
+wdbc,WDBC,LR,Artigo,97.71,1.68
+wpbc,WPBC,LR,Artigo,86.39,2.25
+alzheimer,Alzheimer,LR,Artigo,81.2,2.15
+cervical,Câncer cervical,LR,Artigo,91.17,1.09
+glioma,Glioma,LR,Artigo,89.15,0.37
+mesothelioma,Mesotelioma,LR,Artigo,76.54,1.55
+parkinson,Parkinson,LR,"Grupo, n = variáveis",86.184,5.851
+spectf,SPECTF,LR,"Grupo, n = variáveis",79.416,1.746
+wdbc,WDBC,LR,"Grupo, n = variáveis",95.598,3.457
+wpbc,WPBC,LR,"Grupo, n = variáveis",75.263,2.721
+alzheimer,Alzheimer,LR,"Grupo, n = variáveis",82.369,4.042
+cervical,Câncer cervical,LR,"Grupo, n = variáveis",90.57,0.704
+glioma,Glioma,LR,"Grupo, n = variáveis",86.991,3.584
+mesothelioma,Mesotelioma,LR,"Grupo, n = variáveis",69.148,3.99
+parkinson,Parkinson,SVM,Artigo,86.13,3.49
+qadc,QADC,SVM,Artigo,82.23,1.07
+spectf,SPECTF,SVM,Artigo,86.52,1.86
+wdbc,WDBC,SVM,Artigo,97.53,1.5
+wpbc,WPBC,SVM,Artigo,86.39,3.26
+alzheimer,Alzheimer,SVM,Artigo,80.88,1.64
+cervical,Câncer cervical,SVM,Artigo,90.27,0.76
+glioma,Glioma,SVM,Artigo,87.37,1.5
+mesothelioma,Mesotelioma,SVM,Artigo,72.52,3.75
+parkinson,Parkinson,SVM,"Grupo, n = variáveis",84.079,5.121
+spectf,SPECTF,SVM,"Grupo, n = variáveis",77.507,6.394
+wdbc,WDBC,SVM,"Grupo, n = variáveis",96.839,3.071
+wpbc,WPBC,SVM,"Grupo, n = variáveis",73.737,3.985
+alzheimer,Alzheimer,SVM,"Grupo, n = variáveis",82.368,3.734
+cervical,Câncer cervical,SVM,"Grupo, n = variáveis",90.122,1.019
+glioma,Glioma,SVM,"Grupo, n = variáveis",87.229,3.991
+mesothelioma,Mesotelioma,SVM,"Grupo, n = variáveis",69.489,6.967
