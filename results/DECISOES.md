@@ -95,3 +95,21 @@ estavam íntegros (91 e 525 linhas válidas). As 14 execuções da QADC que esta
 andamento foram perdidas e rodaram de novo do zero; como o MST é determinístico
 dada a semente, o resultado não muda. Os tempos dessas execuções vêm da segunda
 tentativa.
+
+## D5. E2a adiantado como terceira campanha (24/11, 22:42)
+
+- O E2a (protocolo P2) precisa só da mediana de `n_evals` do MST em P1 por base e
+  fold. O E1 já tinha as 5 sementes completas da Parkinson e da QADC nos folds 0–4,
+  então o E2a dessas duas bases foi lançado lendo os orçamentos direto de
+  `results/E1-reproducao-DA/runs.jsonl`, sem esperar o E1 terminar. A WPBC entra
+  quando o E1 a concluir. A chave de execução não depende do arquivo de origem do
+  orçamento, e os registros reaproveitados no E2-P1 têm o mesmo `n_evals`, então o
+  resultado é o mesmo de lançar depois.
+- Corte do desenho: semente [0] e folds 0–4 (150 + 75 execuções em vez de 900). A
+  grade completa levaria cerca de 33 h, quase toda na QADC.
+- Com três campanhas, rodam 21 processos em 16 núcleos físicos (32 threads). `S*`,
+  `f`, `n_evals` e iterações não mudam (a busca é determinística dada a semente e
+  não depende da carga). O `tempo_s` das execuções que rodaram nesse período fica
+  maior (núcleos divididos por SMT; estimativa de 20 a 40%). Isso afeta as colunas
+  de tempo do E1 e do E2-P1 e o orçamento de tempo do E4 (baselines), que vem do
+  `tempo_s` médio do MST no E1. Se o E4 rodar, isso entra nas limitações.
