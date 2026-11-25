@@ -25,14 +25,14 @@ def hill_climb(objective: BaseObjective, S0: frozenset, eps: float = 1e-12,
     it = 0
     while True:
         best, fbest = None, fS
+        cand = [mv.apply(S) for mv in moves(S, objective.m, min_size=min_size)]
         try:
-            for mv in moves(S, objective.m, min_size=min_size):
-                Sp = mv.apply(S)
-                fp = objective(Sp)
-                if fp > fbest + eps:
-                    best, fbest = Sp, fp
+            fvals = objective.evaluate_many(cand)
         except BudgetExhausted:
             return S, fS, it, True
+        for Sp, fp in zip(cand, fvals):
+            if fp > fbest + eps:
+                best, fbest = Sp, fp
         if best is None:
             return S, fS, it, False
         S, fS = best, fbest

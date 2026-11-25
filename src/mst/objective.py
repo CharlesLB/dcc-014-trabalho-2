@@ -8,11 +8,15 @@ a máscara cerca de 36 bytes: execuções com milhões de avaliações cabem na 
 
 from __future__ import annotations
 
-from typing import Callable, Iterable, Mapping
+import os
+from typing import Callable, Iterable, Mapping, Sequence
 
 import numpy as np
 
-from .classifiers import fit_predict
+from .classifiers import LDASubsetEvaluator, fit_predict
+
+# MST_LDA_RAPIDA=0 desliga o avaliador em lote da LDA (volta ao ajuste por subconjunto).
+FAST_LDA_DEFAULT = os.environ.get("MST_LDA_RAPIDA", "1") != "0"
 
 Subset = frozenset
 
@@ -79,6 +83,68 @@ class BaseObjective:
             self._cache[key] = value
         return value
 
+    def evaluate_many(self, subsets: Sequence[Iterable[int]]) -> list[float]:
+        """Avalia vários subconjuntos, na ordem dada.
+
+        Equivale a ``[self(S) for S in subsets]``: mesmos valores, mesmo cache e
+        mesmos contadores ``n_evals`` / ``n_cache_hits``. Se o orçamento acabar no
+        meio, os subconjuntos anteriores ficam avaliados e contados e
+        ``BudgetExhausted`` é levantada no mesmo ponto em que o laço levantaria.
+        Subclasses podem sobrescrever ``_score_many`` para avaliar os subconjuntos
+        novos em lote.
+        """
+        n = len(subsets)
+        out: list = [None] * n
+        pending: list[tuple[int, frozenset, int | None]] = []
+        pending_keys: dict[int, int] = {}
+        dup: list[tuple[int, int]] = []
+        error: Exception | None = None
+        for i, S in enumerate(subsets):
+            try:
+                S = as_subset(S)
+                if not S:
+                    out[i] = 0.0
+                    continue
+                key = None
+                if self.use_cache:
+                    key = subset_mask(S)
+                    hit = self._cache.get(key)
+                    if hit is not None:
+                        self.n_cache_hits += 1
+                        out[i] = hit
+                        continue
+                    if key in pending_keys:  # repetido dentro do próprio lote
+                        self.n_cache_hits += 1
+                        dup.append((i, pending_keys[key]))
+                        continue
+                if self.max_evals is not None and self.n_evals + len(pending) >= self.max_evals:
+                    raise BudgetExhausted(f"orçamento de {self.max_evals} avaliações esgotado")
+                for j in S:
+                    if j < 0 or j >= self.m:
+                        raise IndexError(f"variável {j} fora de 0..{self.m - 1}")
+            except Exception as e:  # avalia o que veio antes e relança no mesmo ponto
+                error = e
+                break
+            if key is not None:
+                pending_keys[key] = i
+            pending.append((i, S, key))
+        if pending:
+            values = self._score_many([S for _, S, _ in pending])
+            for (i, _, key), v in zip(pending, values):
+                v = float(v)
+                out[i] = v
+                self.n_evals += 1
+                if key is not None:
+                    self._cache[key] = v
+            for i, src in dup:
+                out[i] = out[src]
+        if error is not None:
+            raise error
+        return out
+
+    def _score_many(self, subsets: list[frozenset]) -> list[float]:
+        return [self._score(S) for S in subsets]
+
     @property
     def budget_left(self) -> int | None:
         if self.max_evals is None:
@@ -104,7 +170,7 @@ class ClassifierObjective(BaseObjective):
 
     def __init__(self, X: np.ndarray, y: np.ndarray, classifier: str = "DA",
                  beta: float = 0.99, seed: int = 0, cache: bool = True,
-                 max_evals: int | None = None):
+                 max_evals: int | None = None, fast: bool | None = None):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y)
         if X.ndim != 2:
@@ -118,17 +184,29 @@ class ClassifierObjective(BaseObjective):
         self.y = y
         self.classifier = classifier
         self.seed = seed
+        fast = FAST_LDA_DEFAULT if fast is None else fast
+        self._lda: LDASubsetEvaluator | None = None
+        if fast and classifier.upper() in ("DA", "DA_PASCAL"):
+            self._lda = LDASubsetEvaluator(X, y, equal_priors=classifier.upper() == "DA_PASCAL")
 
     def rat(self, S: Iterable[int]) -> float:
         S = sorted(as_subset(S))
         if not S:
             return 0.0
+        if self._lda is not None:
+            return float(self._lda.accuracy_many([S])[0])
         Xs = self.X[:, S]
         pred = fit_predict(self.classifier, Xs, self.y, Xs, seed=self.seed)
         return float(np.mean(pred == self.y))
 
     def _score(self, S: frozenset) -> float:
         return self.beta * self.rat(S) + self.size_term(S)
+
+    def _score_many(self, subsets: list[frozenset]) -> list[float]:
+        if self._lda is None:
+            return super()._score_many(subsets)
+        acc = self._lda.accuracy_many(subsets)
+        return [self.beta * float(a) + self.size_term(S) for a, S in zip(acc, subsets)]
 
 
 class TableObjective(BaseObjective):
