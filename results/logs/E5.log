@@ -1,0 +1,12 @@
+[E5-fuga] 40 execuções (0 já feitas), 7 processo(s), BLAS com 1 thread(s)
+  1/40 MST parkinson f2 s0 f=0.9346 |S|=7 6.5s
+  2/40 MST parkinson f1 s0 f=0.9276 |S|=10 11.0s
+  3/40 MST parkinson f6 s0 f=0.9289 |S|=8 11.4s
+  4/40 MST parkinson f5 s0 f=0.9397 |S|=9 12.3s
+  5/40 MST parkinson f0 s0 f=0.9271 |S|=11 13.6s
+  6/40 MST parkinson f4 s0 f=0.9346 |S|=7 16.2s
+  7/40 MST parkinson f7 s0 f=0.9280 |S|=10 9.9s
+  8/40 MST parkinson f8 s0 f=0.9237 |S|=7 6.9s
+  9/40 MST parkinson f9 s0 f=0.9298 |S|=6 16.6s
+  10/40 MST parkinson f3 s0 f=0.9346 |S|=7 31.4s
+  11/40 MST wpbc f1 s0 f=0.8663 |S|=18 27.3s

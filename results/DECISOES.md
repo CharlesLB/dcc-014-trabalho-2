@@ -113,3 +113,17 @@ tentativa.
   maior (núcleos divididos por SMT; estimativa de 20 a 40%). Isso afeta as colunas
   de tempo do E1 e do E2-P1 e o orçamento de tempo do E4 (baselines), que vem do
   `tempo_s` médio do MST no E1. Se o E4 rodar, isso entra nas limitações.
+
+## D6. E2-P2 (MST e GULOSO) e E5 adiantados; 3 sementes no E2-P2 e no E3 (24/11, 23:00)
+
+- **Sementes:** a estimativa do E2-P2 e do E3 com 5 sementes passava de 12 h cada
+  (≈ 15 h), então os dois rodam com `sementes = [0, 1, 2]`, como previsto no pedido.
+- **E2-P2 adiantado:** as variantes MST e GULOSO do E2-P2 não dependem de λ nem do
+  gatilho, só do orçamento (mediana de `n_evals` do MST em P1). Elas foram lançadas
+  para as bases e folds que já tinham as 5 sementes do MST no E1: Parkinson
+  (todos os folds) e QADC (todos menos o fold 6, ainda incompleto na hora). Só
+  entra (base, fold) com as 5 sementes, para a mediana ser a mesma da campanha
+  completa; o resto entra depois pela retomada. O MST_FREQ do E2-P2 espera o E2a.
+- **E5 adiantado:** não depende de nenhuma outra campanha.
+- Com isso rodam até 28 processos nas 32 threads. Os resultados não mudam; o
+  `tempo_s` fica maior nesse período (ver D5).

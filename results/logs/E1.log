@@ -92,3 +92,46 @@
   91/450 MST qadc f9 s0 f=0.9001 |S|=28 862.7s
 /home/charles/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
   warnings.warn('resource_tracker: There appear to be %d '
+=== retomada 2026-11-24 21:06:54 ===
+[E1-reproducao-DA] 359 execuções (91 já feitas), 7 processo(s), BLAS com 1 thread(s)
+  1/359 MST qadc f9 s1 f=0.9006 |S|=25 1101.4s
+  2/359 MST qadc f9 s2 f=0.9006 |S|=25 1122.9s
+  3/359 MST qadc f9 s4 f=0.9001 |S|=28 829.6s
+  4/359 MST qadc f9 s3 f=0.9006 |S|=25 1146.1s
+  5/359 MST spectf f0 s0 f=0.8953 |S|=25 546.9s
+  6/359 MST spectf f0 s1 f=0.8921 |S|=21 355.8s
+  7/359 MST qadc f8 s3 f=0.9040 |S|=28 2621.3s
+  8/359 MST spectf f0 s4 f=0.8834 |S|=23 227.3s
+  9/359 MST spectf f0 s2 f=0.8926 |S|=19 465.4s
+  10/359 MST qadc f8 s4 f=0.9073 |S|=31 3169.0s
+  11/359 MST spectf f0 s3 f=0.8953 |S|=25 633.8s
+  12/359 MST qadc f8 s1 f=0.9040 |S|=28 3545.2s
+  13/359 MST spectf f1 s0 f=0.8946 |S|=28 725.9s
+  14/359 MST spectf f1 s1 f=0.8882 |S|=20 633.1s
+  15/359 MST spectf f1 s2 f=0.8862 |S|=29 579.8s
+  16/359 MST spectf f1 s3 f=0.8946 |S|=28 540.1s
+  17/359 MST qadc f8 s2 f=0.9073 |S|=31 3874.0s
+  18/359 MST spectf f2 s1 f=0.8921 |S|=21 416.8s
+  19/359 MST spectf f2 s2 f=0.8921 |S|=21 429.2s
+  20/359 MST spectf f2 s0 f=0.8921 |S|=21 623.4s
+  21/359 MST spectf f2 s4 f=0.8921 |S|=21 429.9s
+  22/359 MST spectf f1 s4 f=0.8946 |S|=28 820.4s
+  23/359 MST spectf f2 s3 f=0.8921 |S|=21 599.4s
+  24/359 MST spectf f4 s0 f=0.8628 |S|=23 98.5s
+  25/359 MST spectf f4 s1 f=0.8628 |S|=23 98.9s
+  26/359 MST spectf f4 s2 f=0.8628 |S|=23 98.5s
+  27/359 MST spectf f3 s0 f=0.8882 |S|=20 676.0s
+  28/359 MST spectf f4 s3 f=0.8628 |S|=23 98.8s
+  29/359 MST spectf f4 s4 f=0.8628 |S|=23 98.3s
+  30/359 MST spectf f3 s4 f=0.8919 |S|=22 523.1s
+  31/359 MST spectf f3 s1 f=0.8919 |S|=22 723.4s
+  32/359 MST spectf f3 s2 f=0.8916 |S|=23 753.8s
+  33/359 MST spectf f3 s3 f=0.8916 |S|=23 697.0s
+  34/359 MST spectf f5 s2 f=0.8788 |S|=25 308.5s
+  35/359 MST spectf f5 s0 f=0.8758 |S|=20 490.2s
+  36/359 MST spectf f5 s1 f=0.8797 |S|=21 557.7s
+  37/359 MST spectf f5 s4 f=0.8795 |S|=22 461.5s
+  38/359 MST spectf f5 s3 f=0.8797 |S|=21 747.3s
+  39/359 MST spectf f6 s0 f=0.8868 |S|=26 758.9s
+  40/359 MST spectf f6 s2 f=0.8873 |S|=24 656.9s
+  41/359 MST spectf f6 s4 f=0.8875 |S|=23 703.2s
