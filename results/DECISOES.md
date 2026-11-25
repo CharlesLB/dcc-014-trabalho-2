@@ -230,3 +230,11 @@ O MST_FREQ do E2-P2 entra na fila quando o E2a terminar.
   a fila2 ganhou, com prioridade menor, as sementes 3 e 4 de E2-P1/MST_FREQ, E2-P2 e
   E3, voltando às 5 sementes da spec se der tempo. O relatório usa só sementes
   completas em todas as bases de cada comparação.
+
+## D11. Fila 2 concluída (25/11 06:56)
+
+- 3 790 execuções em 6 h 04 min, sem erros. Entraram todas as entradas, inclusive as
+  de prioridade baixa: E2-P1/MST_FREQ, E2-P2 e E3 ficaram com as **5 sementes** da
+  spec, e o SVM rodou também na SPECTF. A redução para 3 sementes (D9) não foi
+  necessária no fim.
+- Ficaram de fora só a QADC com LR e SVM e as baselines com LR e SVM (D9).

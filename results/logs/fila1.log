@@ -60,3 +60,39 @@
   59/3395 [E2a-ajuste] MST_FREQ qadc f4 s1 f=0.8950 |S|=34 230.2s
   60/3395 [E2a-ajuste] MST_FREQ qadc f4 s1 f=0.8950 |S|=34 234.9s
   61/3395 [E2a-ajuste] MST_FREQ qadc f4 s1 f=0.8950 |S|=34 254.4s
+  62/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 769.9s
+  63/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 773.2s
+  64/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 788.6s
+  65/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 788.7s
+  66/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 799.4s
+  67/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 757.6s
+  68/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 818.3s
+  69/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 762.0s
+  70/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 766.9s
+  71/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 786.9s
+  72/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 800.9s
+  73/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 788.5s
+  74/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 821.9s
+  75/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 773.7s
+  76/3395 [E2a-ajuste] MST_FREQ qadc f5 s0 f=0.8887 |S|=25 786.1s
+  77/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 832.7s
+  78/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 808.1s
+  79/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 844.0s
+  80/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 851.8s
+  81/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 822.5s
+  82/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 867.0s
+  83/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 782.2s
+  84/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 797.5s
+  85/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 809.8s
+  86/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 897.7s
+  87/3395 [E2a-ajuste] MST_FREQ qadc f3 s1 f=0.9028 |S|=33 1332.3s
+  88/3395 [E2a-ajuste] MST_FREQ qadc f3 s1 f=0.9028 |S|=33 1371.0s
+  89/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 821.9s
+  90/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 969.6s
+  91/3395 [E2a-ajuste] MST_FREQ qadc f3 s1 f=0.9028 |S|=33 1377.9s
+  92/3395 [E2a-ajuste] MST_FREQ qadc f3 s1 f=0.9028 |S|=33 1383.6s
+  93/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 787.4s
+  94/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 816.9s
+  95/3395 [E2a-ajuste] MST_FREQ qadc f5 s1 f=0.8887 |S|=25 846.1s
+/home/charles/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '
